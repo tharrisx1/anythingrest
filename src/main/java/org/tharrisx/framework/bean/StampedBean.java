@@ -55,6 +55,10 @@ public abstract class StampedBean extends StorableBean {
 
   @Override
   public String toString() {
-    return new ToStringBuilder(this).appendSuper(super.toString()).append("created", getCreated()).append("lastChanged", getLastChanged()).toString();
+    return new ToStringBuilder(this)
+        .appendSuper(super.toString())
+        .append("created", getCreated())
+        .append("lastChanged", getLastChanged())
+        .toString();
   }
 }

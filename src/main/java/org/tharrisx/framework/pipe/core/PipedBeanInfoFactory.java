@@ -37,8 +37,7 @@ public class PipedBeanInfoFactory {
 
   @SuppressWarnings("unchecked")
   private static PipeableBeanInfo loadBeanInfo(Class<? extends Bean> beanType) {
-    if(Log.isEnteringEnabled(PipedBeanInfoFactory.class))
-      Log.entering(PipedBeanInfoFactory.class, "loadBeanInfo", beanType);
+    if(Log.isEnteringEnabled(PipedBeanInfoFactory.class)) Log.entering(PipedBeanInfoFactory.class, "loadBeanInfo", beanType);
     PipeableBeanInfo ret = null;
     try {
       ret = new PipeableBeanInfo();
@@ -79,8 +78,7 @@ public class PipedBeanInfoFactory {
       }
       return ret;
     } finally {
-      if(Log.isEnteringEnabled(PipedBeanInfoFactory.class))
-        Log.exiting(PipedBeanInfoFactory.class, "loadBeanInfo", ret);
+      if(Log.isEnteringEnabled(PipedBeanInfoFactory.class)) Log.exiting(PipedBeanInfoFactory.class, "loadBeanInfo", ret);
     }
   }
 }

@@ -36,6 +36,10 @@ public class HibernateBeanStoreTransaction extends BeanStoreTransaction {
 
   @Override
   public String toString() {
-    return new ToStringBuilder(this).appendSuper(super.toString()).append("session", getSession()).append("transaction", getTransaction()).toString();
+    return new ToStringBuilder(this)
+        .appendSuper(super.toString())
+        .append("session", getSession())
+        .append("transaction", getTransaction())
+        .toString();
   }
 }

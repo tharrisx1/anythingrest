@@ -35,12 +35,10 @@ public abstract class AbstractBeanStore<T extends StorableBean> implements BeanS
   }
 
   protected AbstractBeanStore(final BeanStoreFactory beanStoreFactory1, final Class<T> beanType1) {
-    if(Log.isEnteringEnabled(AbstractBeanStore.class))
-      Log.entering(AbstractBeanStore.class, Log.METHOD_NAME_CONSTRUCTOR, beanStoreFactory1, beanType1);
+    if(Log.isEnteringEnabled(AbstractBeanStore.class)) Log.entering(AbstractBeanStore.class, Log.METHOD_NAME_CONSTRUCTOR, beanStoreFactory1, beanType1);
     this.beanStoreFactory = beanStoreFactory1;
     this.beanType = beanType1;
-    if(Log.isExitingEnabled(AbstractBeanStore.class))
-      Log.exiting(AbstractBeanStore.class, Log.METHOD_NAME_CONSTRUCTOR);
+    if(Log.isExitingEnabled(AbstractBeanStore.class)) Log.exiting(AbstractBeanStore.class, Log.METHOD_NAME_CONSTRUCTOR);
   }
 
   /**
@@ -50,15 +48,13 @@ public abstract class AbstractBeanStore<T extends StorableBean> implements BeanS
    * @return boolean
    */
   protected boolean wasBeanStoredPreviously(T bean) {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), "wasBeanStoredPreviously", bean);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), "wasBeanStoredPreviously", bean);
     boolean ret = false;
     try {
       ret = null != bean.getId() && !"".equals(bean.getId());
       return ret;
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), "wasBeanStoredPreviously", ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), "wasBeanStoredPreviously", ret);
     }
   }
 
@@ -67,15 +63,13 @@ public abstract class AbstractBeanStore<T extends StorableBean> implements BeanS
    * @return String
    */
   protected String createBeanId() {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), "createBeanId");
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), "createBeanId");
     String ret = null;
     try {
       ret = new RandomGUID(false).toString();
       return ret;
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), "createBeanId", ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), "createBeanId", ret);
     }
   }
 
@@ -85,16 +79,14 @@ public abstract class AbstractBeanStore<T extends StorableBean> implements BeanS
    * @param bean T
    */
   protected void handleStampedBeanCreate(T bean) {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), "handleStampedBeanCreate", bean);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), "handleStampedBeanCreate", bean);
     try {
       if(bean instanceof StampedBean) {
         ((StampedBean) bean).setCreated(new Date());
         ((StampedBean) bean).setLastChanged(new Date());
       }
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), "handleStampedBeanCreate");
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), "handleStampedBeanCreate");
     }
   }
 
@@ -104,15 +96,13 @@ public abstract class AbstractBeanStore<T extends StorableBean> implements BeanS
    * @param bean T
    */
   protected void handleStampedBeanUpdate(T bean) {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), "handleStampedBeanUpdate", bean);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), "handleStampedBeanUpdate", bean);
     try {
       if(bean instanceof StampedBean) {
         ((StampedBean) bean).setLastChanged(new Date());
       }
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), "handleStampedBeanUpdate");
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), "handleStampedBeanUpdate");
     }
   }
 
@@ -120,6 +110,7 @@ public abstract class AbstractBeanStore<T extends StorableBean> implements BeanS
   public String toString() {
     return new ToStringBuilder(this)
         //.append("beanStoreFactory", getBeanStoreFactory())
-        .append("beanType", getBeanType()).toString();
+        .append("beanType", getBeanType())
+        .toString();
   }
 }

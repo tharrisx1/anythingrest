@@ -36,12 +36,10 @@ public abstract class BeanTypeAllResource<T extends StorableBean> {
   }
 
   public BeanTypeAllResource(final ResourceCore<T> resourceCore1, final ResourceRequestInfo resourceRequestInfo1) {
-    if(Log.isEnteringEnabled(BeanTypeAllResource.class))
-      Log.entering(BeanTypeAllResource.class, Log.METHOD_NAME_CONSTRUCTOR, resourceCore1, resourceRequestInfo1);
+    if(Log.isEnteringEnabled(BeanTypeAllResource.class)) Log.entering(BeanTypeAllResource.class, Log.METHOD_NAME_CONSTRUCTOR, resourceCore1, resourceRequestInfo1);
     this.resourceCore = resourceCore1;
     this.resourceRequestInfo = resourceRequestInfo1;
-    if(Log.isExitingEnabled(BeanTypeAllResource.class))
-      Log.exiting(BeanTypeAllResource.class, Log.METHOD_NAME_CONSTRUCTOR);
+    if(Log.isExitingEnabled(BeanTypeAllResource.class)) Log.exiting(BeanTypeAllResource.class, Log.METHOD_NAME_CONSTRUCTOR);
   }
 
   /**
@@ -56,16 +54,14 @@ public abstract class BeanTypeAllResource<T extends StorableBean> {
   @GET
   @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.TEXT_XML })
   public Response getAllBeans() {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), METHOD_GET_ALL_BEANS);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), METHOD_GET_ALL_BEANS);
     Response ret = null;
     try {
       BeanList<T> beans = getResourceCore().getBeanBehavior().getAllBeans();
       ret = getResourceCore().makeGetSuccessResponse(getResourceRequestInfo(), this, beans);
       return ret;
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), METHOD_GET_ALL_BEANS, ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), METHOD_GET_ALL_BEANS, ret);
     }
   }
 

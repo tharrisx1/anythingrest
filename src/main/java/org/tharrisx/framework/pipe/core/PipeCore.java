@@ -57,8 +57,7 @@ public class PipeCore {
    * @throws PipeException if there is some type of failure thing
    */
   public String writeToString(Bean bean, PipeContext pipeContext) throws PipeException {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), "writeToString", bean, pipeContext);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), "writeToString", bean, pipeContext);
     String ret = null;
     try {
       ret = convertReaderToString(write(bean, pipeContext));
@@ -66,8 +65,7 @@ public class PipeCore {
     } catch(IOException e) {
       throw new PipeException("Error putting the bean " + bean + " to a String.", e);
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), "writeToString", ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), "writeToString", ret);
     }
   }
 
@@ -80,8 +78,7 @@ public class PipeCore {
    * @throws PipeException if there is some type of failure thing
    */
   public NodeModel writeToFreemarker(Bean bean, PipeContext pipeContext) throws PipeException {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), "writeToFreemarker", bean, pipeContext);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), "writeToFreemarker", bean, pipeContext);
     NodeModel ret = null;
     Reader source = null;
     try {
@@ -102,8 +99,7 @@ public class PipeCore {
           throw new PipeException("Error closing the reader stream while marshalling to freemarker the bean " + bean, e);
         }
       }
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), "writeToFreemarker", ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), "writeToFreemarker", ret);
     }
   }
 
@@ -117,8 +113,7 @@ public class PipeCore {
    * @throws PipeException if there is some type of failure thing
    */
   public Reader write(Bean bean, PipeContext pipeContext) throws PipeException {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), "write", bean, pipeContext);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), "write", bean, pipeContext);
     Reader ret = null;
     try {
       StringWriter writer = new StringWriter();
@@ -126,8 +121,7 @@ public class PipeCore {
       ret = new StringReader(writer.toString());
       return ret;
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), "write", ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), "write", ret);
     }
   }
 
@@ -139,15 +133,13 @@ public class PipeCore {
    * @throws PipeException if there is some type of failure thing
    */
   public Bean read(String source) throws PipeException {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), "read", source);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), "read", source);
     Bean ret = null;
     try {
       ret = read(new StringReader(source));
       return ret;
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), "read", ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), "read", ret);
     }
   }
 
@@ -159,8 +151,7 @@ public class PipeCore {
    * @throws PipeException if there is some type of failure thing
    */
   public Bean read(Reader source) throws PipeException {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), "read", source);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), "read", source);
     Bean ret = null;
     try {
       ret = ((BasePipeFormat) getPipeFormat()).read(source);
@@ -172,14 +163,12 @@ public class PipeCore {
         } catch(IOException e) {
           throw new PipeException("Error closing reader stream while unmarshalling " + source, e);
         }
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), "read", ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), "read", ret);
     }
   }
 
   private String convertReaderToString(Reader source) throws IOException {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), "convertStreamToString", source);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), "convertStreamToString", source);
     String ret = null;
     BufferedReader reader = null;
     try {
@@ -198,8 +187,7 @@ public class PipeCore {
         reader.close();
       if(null != source)
         source.close();
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), "convertStreamToString", ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), "convertStreamToString", ret);
     }
   }
 
@@ -208,16 +196,25 @@ public class PipeCore {
     if(!(other instanceof PipeCore))
       return false;
     PipeCore castOther = (PipeCore) other;
-    return new EqualsBuilder().append(getPipeName(), castOther.getPipeName()).append(getPipeFormat(), castOther.getPipeFormat()).isEquals();
+    return new EqualsBuilder()
+        .append(getPipeName(), castOther.getPipeName())
+        .append(getPipeFormat(), castOther.getPipeFormat())
+        .isEquals();
   }
 
   @Override
   public int hashCode() {
-    return new HashCodeBuilder().append(getPipeName()).append(getPipeFormat()).toHashCode();
+    return new HashCodeBuilder()
+        .append(getPipeName())
+        .append(getPipeFormat())
+        .toHashCode();
   }
 
   @Override
   public String toString() {
-    return new ToStringBuilder(this).append("pipeName", getPipeName()).append("pipeFormat", getPipeFormat()).toString();
+    return new ToStringBuilder(this)
+        .append("pipeName", getPipeName())
+        .append("pipeFormat", getPipeFormat())
+        .toString();
   }
 }

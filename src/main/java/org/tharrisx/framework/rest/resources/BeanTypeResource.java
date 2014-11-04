@@ -52,12 +52,10 @@ public abstract class BeanTypeResource<T extends StorableBean> {
   }
 
   public BeanTypeResource(final ResourceCore<T> resourceCore1, final ResourceRequestInfo resourceRequestInfo1) {
-    if(Log.isEnteringEnabled(BeanTypeResource.class))
-      Log.entering(BeanTypeResource.class, Log.METHOD_NAME_CONSTRUCTOR, resourceCore1, resourceRequestInfo1);
+    if(Log.isEnteringEnabled(BeanTypeResource.class)) Log.entering(BeanTypeResource.class, Log.METHOD_NAME_CONSTRUCTOR, resourceCore1, resourceRequestInfo1);
     this.resourceCore = resourceCore1;
     this.resourceRequestInfo = resourceRequestInfo1;
-    if(Log.isExitingEnabled(BeanTypeResource.class))
-      Log.exiting(BeanTypeMatchResource.class, Log.METHOD_NAME_CONSTRUCTOR);
+    if(Log.isExitingEnabled(BeanTypeResource.class)) Log.exiting(BeanTypeMatchResource.class, Log.METHOD_NAME_CONSTRUCTOR);
   }
 
   /**
@@ -68,8 +66,7 @@ public abstract class BeanTypeResource<T extends StorableBean> {
    */
   @Path("all")
   public BeanTypeAllResource<T> followBeanTypeAllPath() {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), METHOD_FOLLOW_BEAN_TYPE_ALL_PATH);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), METHOD_FOLLOW_BEAN_TYPE_ALL_PATH);
     BeanTypeAllResource<T> ret = null;
     try {
       ret = getResourceCore().makeBeanTypeAllResource(getResourceRequestInfo());
@@ -77,8 +74,7 @@ public abstract class BeanTypeResource<T extends StorableBean> {
     } catch(RuntimeException e) {
       throw new WebApplicationException(Response.Status.BAD_REQUEST);
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), METHOD_FOLLOW_BEAN_TYPE_ALL_PATH, ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), METHOD_FOLLOW_BEAN_TYPE_ALL_PATH, ret);
     }
   }
 
@@ -90,8 +86,7 @@ public abstract class BeanTypeResource<T extends StorableBean> {
    */
   @Path("match")
   public BeanTypeMatchResource<T> followBeanTypeMatchPath() {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), METHOD_FOLLOW_BEAN_TYPE_MATCH_PATH);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), METHOD_FOLLOW_BEAN_TYPE_MATCH_PATH);
     BeanTypeMatchResource<T> ret = null;
     try {
       ret = getResourceCore().makeBeanTypeMatchResource(getResourceRequestInfo());
@@ -99,8 +94,7 @@ public abstract class BeanTypeResource<T extends StorableBean> {
     } catch(RuntimeException e) {
       throw new WebApplicationException(Response.Status.BAD_REQUEST);
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), METHOD_FOLLOW_BEAN_TYPE_MATCH_PATH, ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), METHOD_FOLLOW_BEAN_TYPE_MATCH_PATH, ret);
     }
   }
 
@@ -113,8 +107,7 @@ public abstract class BeanTypeResource<T extends StorableBean> {
    */
   @Path("{beanId: [0-9,A-F]+}")
   public BeanInstanceResource<T> followBeanInstancePath(@PathParam("beanId") final String beanId) {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), METHOD_FOLLOW_BEAN_INSTANCE_PATH, beanId);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), METHOD_FOLLOW_BEAN_INSTANCE_PATH, beanId);
     BeanInstanceResource<T> ret = null;
     try {
       ret = getResourceCore().makeBeanInstanceResource(getResourceRequestInfo(), beanId);
@@ -122,8 +115,7 @@ public abstract class BeanTypeResource<T extends StorableBean> {
     } catch(RuntimeException e) {
       throw new WebApplicationException(Response.Status.BAD_REQUEST);
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), METHOD_FOLLOW_BEAN_INSTANCE_PATH, ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), METHOD_FOLLOW_BEAN_INSTANCE_PATH, ret);
     }
   }
 
@@ -138,8 +130,7 @@ public abstract class BeanTypeResource<T extends StorableBean> {
   @GET
   @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.TEXT_XML })
   public Response getPageOfBeans(@DefaultValue("0") @QueryParam("start") final int start, @DefaultValue("9") @QueryParam("end") final int end) {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), METHOD_GET_PAGE_OF_BEANS, start, end);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), METHOD_GET_PAGE_OF_BEANS, start, end);
     Response ret = null;
     try {
       PageableBeanList<T> beans = getResourceCore().getBeanBehavior().getBeans(start, end);
@@ -148,8 +139,7 @@ public abstract class BeanTypeResource<T extends StorableBean> {
     } catch(RuntimeException e) {
       throw new WebApplicationException(Response.Status.BAD_REQUEST);
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), METHOD_GET_PAGE_OF_BEANS, ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), METHOD_GET_PAGE_OF_BEANS, ret);
     }
   }
 
@@ -163,8 +153,7 @@ public abstract class BeanTypeResource<T extends StorableBean> {
   @POST
   @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.TEXT_XML })
   public Response postBean(Reader entityBody) {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), METHOD_POST_BEAN, entityBody);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), METHOD_POST_BEAN, entityBody);
     Response ret = null;
     try {
       Bean rawBean = getResourceCore().interpretRequestBody(getResourceRequestInfo(), entityBody);
@@ -178,8 +167,7 @@ public abstract class BeanTypeResource<T extends StorableBean> {
     } catch(RuntimeException e) {
       throw new WebApplicationException(Response.Status.BAD_REQUEST);
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), METHOD_POST_BEAN, ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), METHOD_POST_BEAN, ret);
     }
   }
 

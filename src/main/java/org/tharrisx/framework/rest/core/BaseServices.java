@@ -43,8 +43,7 @@ public abstract class BaseServices implements Services {
   }
 
   protected BaseServices(final List<Class<? extends StorableBean>> storableBeanTypes1, final boolean enableCallStatistics1) {
-    if(Log.isEnteringEnabled(BaseServices.class))
-      Log.entering(BaseServices.class, Log.METHOD_NAME_CONSTRUCTOR);
+    if(Log.isEnteringEnabled(BaseServices.class)) Log.entering(BaseServices.class, Log.METHOD_NAME_CONSTRUCTOR);
     try {
       this.storableBeanTypes = storableBeanTypes1;
       this.pipeManager = constructFrameworkPipeManager();
@@ -56,8 +55,7 @@ public abstract class BaseServices implements Services {
   }
 
   private PipeManager constructFrameworkPipeManager() {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), "constructFrameworkPipeManager");
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), "constructFrameworkPipeManager");
     PipeManager ret = null;
     try {
       PipeContextProtectionFactory pipeContextProtectionFactory = new DefaultPipeContextProtectionFactory();
@@ -81,13 +79,16 @@ public abstract class BaseServices implements Services {
       ret.initialize();
       return ret;
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), "constructFrameworkPipeManager", ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), "constructFrameworkPipeManager", ret);
     }
   }
 
   @Override
   public String toString() {
-    return new ToStringBuilder(this).append("storableBeanTypes", getStorableBeanTypes()).append("beanStoreFactory", getBeanStoreFactory()).append("pipeManager", getPipeManager()).toString();
+    return new ToStringBuilder(this)
+        .append("storableBeanTypes", getStorableBeanTypes())
+        .append("beanStoreFactory", getBeanStoreFactory())
+        .append("pipeManager", getPipeManager())
+        .toString();
   }
 }

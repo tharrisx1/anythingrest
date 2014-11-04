@@ -66,8 +66,7 @@ public class CallStatistics {
     if(this.successTimes.size() > 1) {
       ret.successMeanDuration = DurationFormatter.formatDuration(Statistics.computeMean(successArray));
       ret.successMedianDuration = DurationFormatter.formatDuration(Statistics.computeMedian(successArray));
-      ret.successMeanMedianDifference = DurationFormatter
-          .formatDuration(new Double(Math.abs(Statistics.computeMean(successArray).doubleValue() - Statistics.computeMedian(successArray).doubleValue())));
+      ret.successMeanMedianDifference = DurationFormatter.formatDuration(new Double(Math.abs(Statistics.computeMean(successArray).doubleValue() - Statistics.computeMedian(successArray).doubleValue())));
       ret.successStandardDeviation = DurationFormatter.formatDuration(Statistics.computeStandardDeviation(successArray));
       ret.successVariation = DurationFormatter.formatDuration(Statistics.computeVariance(successArray));
     }
@@ -76,8 +75,7 @@ public class CallStatistics {
     if(this.failureTimes.size() > 1) {
       ret.failureMeanDuration = DurationFormatter.formatDuration(Statistics.computeMean(failureArray));
       ret.failureMedianDuration = DurationFormatter.formatDuration(Statistics.computeMedian(failureArray));
-      ret.failureMeanMedianDifference = DurationFormatter
-          .formatDuration(new Double(Math.abs(Statistics.computeMean(failureArray).doubleValue() - Statistics.computeMedian(failureArray).doubleValue())));
+      ret.failureMeanMedianDifference = DurationFormatter.formatDuration(new Double(Math.abs(Statistics.computeMean(failureArray).doubleValue() - Statistics.computeMedian(failureArray).doubleValue())));
       ret.failureStandardDeviation = DurationFormatter.formatDuration(Statistics.computeStandardDeviation(failureArray));
       ret.failureVariation = DurationFormatter.formatDuration(Statistics.computeVariance(failureArray));
     }

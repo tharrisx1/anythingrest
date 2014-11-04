@@ -111,18 +111,34 @@ public class PageableBeanList<T extends Bean> extends Bean {
     if(!(other instanceof PageableBeanList))
       return false;
     PageableBeanList<? extends Bean> castOther = (PageableBeanList<? extends Bean>) other;
-    return new EqualsBuilder().appendSuper(super.equals(castOther)).append(getTotalCount(), castOther.getTotalCount()).append(getItems(), castOther.getItems())
-        .append(getLastModifed(), castOther.getLastModifed()).append(getTag(), castOther.getTag()).isEquals();
+    return new EqualsBuilder()
+        .appendSuper(super.equals(castOther))
+        .append(getTotalCount(), castOther.getTotalCount())
+        .append(getItems(), castOther.getItems())
+        .append(getLastModifed(), castOther.getLastModifed())
+        .append(getTag(), castOther.getTag())
+        .isEquals();
   }
 
   @Override
   public int hashCode() {
-    return new HashCodeBuilder(-530135009, -1846462541).appendSuper(super.hashCode()).append(getTotalCount()).append(getItems()).append(getLastModifed()).append(getTag()).toHashCode();
+    return new HashCodeBuilder(-530135009, -1846462541)
+        .appendSuper(super.hashCode())
+        .append(getTotalCount())
+        .append(getItems())
+        .append(getLastModifed())
+        .append(getTag())
+        .toHashCode();
   }
 
   @Override
   public String toString() {
-    return new ToStringBuilder(this).appendSuper(super.toString()).append("totalCount", getTotalCount()).append("items", getItems()).append("lastModifed", getLastModifed()).append("tag", getTag())
+    return new ToStringBuilder(this)
+        .appendSuper(super.toString())
+        .append("totalCount", getTotalCount())
+        .append("items", getItems())
+        .append("lastModifed", getLastModifed())
+        .append("tag", getTag())
         .toString();
   }
 }

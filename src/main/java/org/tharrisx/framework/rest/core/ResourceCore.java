@@ -56,12 +56,10 @@ public final class ResourceCore<T extends StorableBean> {
   }
 
   public ResourceCore(final Class<T> beanType1) {
-    if(Log.isEnteringEnabled(ResourceCore.class))
-      Log.entering(ResourceCore.class, Log.METHOD_NAME_CONSTRUCTOR, beanType1);
+    if(Log.isEnteringEnabled(ResourceCore.class)) Log.entering(ResourceCore.class, Log.METHOD_NAME_CONSTRUCTOR, beanType1);
     this.beanType = beanType1;
     this.beanBehavior = makeBeanBehavior();
-    if(Log.isExitingEnabled(ResourceCore.class))
-      Log.exiting(ResourceCore.class, Log.METHOD_NAME_CONSTRUCTOR);
+    if(Log.isExitingEnabled(ResourceCore.class)) Log.exiting(ResourceCore.class, Log.METHOD_NAME_CONSTRUCTOR);
   }
 
   /**
@@ -72,8 +70,7 @@ public final class ResourceCore<T extends StorableBean> {
    */
   @SuppressWarnings("unchecked")
   public BeanTypeResource<T> makeBeanTypeResource(ResourceRequestInfo req, Class<? extends StorableBean> beanType1) {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), METHOD_MAKE_BEAN_TYPE_RESOURCE, req, beanType1);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), METHOD_MAKE_BEAN_TYPE_RESOURCE, req, beanType1);
     BeanTypeResource<T> ret = null;
     try {
       Class<? extends BeanTypeResource<? extends StorableBean>> beanTypeResourceClass = ServicesRegistry.getBeanConfiguration().getBeanTypeResourceClass(beanType1);
@@ -84,8 +81,7 @@ public final class ResourceCore<T extends StorableBean> {
     } catch(Exception e) {
       throw new WebApplicationException(e);
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), METHOD_MAKE_BEAN_TYPE_RESOURCE, ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), METHOD_MAKE_BEAN_TYPE_RESOURCE, ret);
     }
   }
 
@@ -97,8 +93,7 @@ public final class ResourceCore<T extends StorableBean> {
    */
   @SuppressWarnings("unchecked")
   public BeanTypeMatchResource<T> makeBeanTypeMatchResource(ResourceRequestInfo req) {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), METHOD_MAKE_BEAN_TYPE_MATCH_RESOURCE, req);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), METHOD_MAKE_BEAN_TYPE_MATCH_RESOURCE, req);
     BeanTypeMatchResource<T> ret = null;
     try {
       Class<? extends BeanTypeMatchResource<? extends StorableBean>> beanTypeMatcherResourceClass = ServicesRegistry.getBeanConfiguration().getTypeSearchResourceClass(getBeanType());
@@ -108,8 +103,7 @@ public final class ResourceCore<T extends StorableBean> {
     } catch(Exception e) {
       throw new WebApplicationException(e);
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), METHOD_MAKE_BEAN_TYPE_MATCH_RESOURCE, ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), METHOD_MAKE_BEAN_TYPE_MATCH_RESOURCE, ret);
     }
   }
 
@@ -121,8 +115,7 @@ public final class ResourceCore<T extends StorableBean> {
    */
   @SuppressWarnings("unchecked")
   public BeanTypeAllResource<T> makeBeanTypeAllResource(ResourceRequestInfo req) {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), METHOD_MAKE_BEAN_TYPE_ALL_RESOURCE, req);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), METHOD_MAKE_BEAN_TYPE_ALL_RESOURCE, req);
     BeanTypeAllResource<T> ret = null;
     try {
       Class<? extends BeanTypeAllResource<? extends StorableBean>> beanTypeMatcherResourceClass = ServicesRegistry.getBeanConfiguration().getTypeAllResourceClass(getBeanType());
@@ -132,8 +125,7 @@ public final class ResourceCore<T extends StorableBean> {
     } catch(Exception e) {
       throw new WebApplicationException(e);
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), METHOD_MAKE_BEAN_TYPE_ALL_RESOURCE, ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), METHOD_MAKE_BEAN_TYPE_ALL_RESOURCE, ret);
     }
   }
 
@@ -146,8 +138,7 @@ public final class ResourceCore<T extends StorableBean> {
    */
   @SuppressWarnings("unchecked")
   public BeanInstanceResource<T> makeBeanInstanceResource(ResourceRequestInfo req, String beanId) {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), METHOD_MAKE_BEAN_INSTANCE_RESOURCE, req, beanId);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), METHOD_MAKE_BEAN_INSTANCE_RESOURCE, req, beanId);
     BeanInstanceResource<T> ret = null;
     try {
       Class<? extends BeanInstanceResource<? extends StorableBean>> beanResourceClass = ServicesRegistry.getBeanConfiguration().getInstanceResourceClass(getBeanType());
@@ -157,8 +148,7 @@ public final class ResourceCore<T extends StorableBean> {
     } catch(Exception e) {
       throw new WebApplicationException(e);
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), METHOD_MAKE_BEAN_INSTANCE_RESOURCE, ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), METHOD_MAKE_BEAN_INSTANCE_RESOURCE, ret);
     }
   }
 
@@ -170,8 +160,7 @@ public final class ResourceCore<T extends StorableBean> {
    * @return Bean
    */
   public Bean interpretRequestBody(ResourceRequestInfo req, Reader requestBody) throws IOException {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), METHOD_INTERPRET_REQUEST_BODY, req, requestBody);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), METHOD_INTERPRET_REQUEST_BODY, req, requestBody);
     Bean ret = null;
     try {
       BufferedReader reader = new BufferedReader(requestBody);
@@ -182,15 +171,12 @@ public final class ResourceCore<T extends StorableBean> {
         line = reader.readLine();
       }
       String body = bodyBuf.toString();
-      if(Log.isDebugEnabled(getClass()))
-        Log.debug(getClass(), METHOD_INTERPRET_REQUEST_BODY, "Interpreting " + req.getPipeName() + " request body: " + body);
+      if(Log.isDebugEnabled(getClass())) Log.debug(getClass(), METHOD_INTERPRET_REQUEST_BODY, "Interpreting " + req.getPipeName() + " request body: " + body);
       ret = req.getPipe().read(new StringReader(body));
-      if(Log.isDebugEnabled(getClass()))
-        Log.debug(getClass(), METHOD_INTERPRET_REQUEST_BODY, "Interpreted " + req.getPipeName() + " request body as: " + ret);
+      if(Log.isDebugEnabled(getClass())) Log.debug(getClass(), METHOD_INTERPRET_REQUEST_BODY, "Interpreted " + req.getPipeName() + " request body as: " + ret);
       return ret;
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), METHOD_INTERPRET_REQUEST_BODY, ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), METHOD_INTERPRET_REQUEST_BODY, ret);
     }
   }
 
@@ -202,20 +188,17 @@ public final class ResourceCore<T extends StorableBean> {
    * @return Response
    */
   public Response makeGetSuccessResponse(ResourceRequestInfo req, Object resourceReference, Bean bean) {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), METHOD_GET_SUCCESS_RESPONSE, req, resourceReference, bean);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), METHOD_GET_SUCCESS_RESPONSE, req, resourceReference, bean);
     Response ret = null;
     try {
       String body = req.getPipe().writeToString(bean, req.getPipeContext());
-      if(Log.isDebugEnabled(getClass()))
-        Log.debug(getClass(), METHOD_GET_SUCCESS_RESPONSE, "Sending " + req.getPipeName() + " response body: " + body);
+      if(Log.isDebugEnabled(getClass())) Log.debug(getClass(), METHOD_GET_SUCCESS_RESPONSE, "Sending " + req.getPipeName() + " response body: " + body);
       ret = Response.ok(body).type(req.getResponseMediaType()).build();
       String callName = makeCallName(getBeanType(), resourceReference, "GET", req.getPipeName());
       ServicesRegistry.getServices().getCallStatistician().recordCall(callName, true, req.getTiming());
       return ret;
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), METHOD_GET_SUCCESS_RESPONSE, ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), METHOD_GET_SUCCESS_RESPONSE, ret);
     }
   }
 
@@ -229,20 +212,17 @@ public final class ResourceCore<T extends StorableBean> {
    * @return Response
    */
   public Response makePostSuccessResponse(ResourceRequestInfo req, Object resourceReference, StorableBean bean) {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), METHOD_POST_SUCCESS_RESPONSE, req, resourceReference, bean);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), METHOD_POST_SUCCESS_RESPONSE, req, resourceReference, bean);
     Response ret = null;
     try {
       URI beanUri = UriBuilder.fromResource(resourceReference.getClass()).path(bean.getId()).build();
-      if(Log.isDebugEnabled(getClass()))
-        Log.debug(getClass(), METHOD_POST_SUCCESS_RESPONSE, "Sending " + req.getPipeName() + " response location: " + beanUri);
+      if(Log.isDebugEnabled(getClass())) Log.debug(getClass(), METHOD_POST_SUCCESS_RESPONSE, "Sending " + req.getPipeName() + " response location: " + beanUri);
       ret = Response.created(beanUri).build();
       String callName = makeCallName(getBeanType(), resourceReference, "POST", req.getPipeName());
       ServicesRegistry.getServices().getCallStatistician().recordCall(callName, true, req.getTiming());
       return ret;
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), METHOD_POST_SUCCESS_RESPONSE, ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), METHOD_POST_SUCCESS_RESPONSE, ret);
     }
   }
 
@@ -253,8 +233,7 @@ public final class ResourceCore<T extends StorableBean> {
    * @return Response
    */
   public Response makePutSuccessResponse(ResourceRequestInfo req, Object resourceReference) {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), METHOD_PUT_SUCCESS_RESPONSE, req, resourceReference);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), METHOD_PUT_SUCCESS_RESPONSE, req, resourceReference);
     Response ret = null;
     try {
       ret = Response.noContent().build();
@@ -262,8 +241,7 @@ public final class ResourceCore<T extends StorableBean> {
       ServicesRegistry.getServices().getCallStatistician().recordCall(callName, true, req.getTiming());
       return ret;
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), METHOD_PUT_SUCCESS_RESPONSE, ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), METHOD_PUT_SUCCESS_RESPONSE, ret);
     }
   }
 
@@ -273,14 +251,12 @@ public final class ResourceCore<T extends StorableBean> {
    * @param req ResourceRequestInfo
    */
   public void recordDeleteSuccess(ResourceRequestInfo req, Object resourceReference) {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), METHOD_RECORD_DELETE_SUCCESS, req, resourceReference);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), METHOD_RECORD_DELETE_SUCCESS, req, resourceReference);
     try {
       String callName = makeCallName(getBeanType(), resourceReference, "DELETE", req.getPipeName());
       ServicesRegistry.getServices().getCallStatistician().recordCall(callName, true, req.getTiming());
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), METHOD_RECORD_DELETE_SUCCESS);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), METHOD_RECORD_DELETE_SUCCESS);
     }
   }
 
@@ -316,8 +292,7 @@ public final class ResourceCore<T extends StorableBean> {
 
   @SuppressWarnings("unchecked")
   private BeanBehavior<T> makeBeanBehavior() {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), METHOD_MAKE_BEAN_BEHAVIOR);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), METHOD_MAKE_BEAN_BEHAVIOR);
     BeanBehavior<T> ret = null;
     try {
       Class<? extends BeanBehavior<? extends StorableBean>> beanBehaviorClass = ServicesRegistry.getBeanConfiguration().getBeanBehaviorClass(getBeanType());
@@ -327,8 +302,7 @@ public final class ResourceCore<T extends StorableBean> {
     } catch(Exception e) {
       throw new WebApplicationException(e);
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), METHOD_MAKE_BEAN_BEHAVIOR, ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), METHOD_MAKE_BEAN_BEHAVIOR, ret);
     }
   }
 

@@ -39,6 +39,8 @@ public abstract class PipeableBean {
 
   @Override
   public String toString() {
-    return new ToStringBuilder(this).append("pipeContext", getPipeContext()).toString();
+    return new ToStringBuilder(this)
+        .append("pipeContext", getPipeContext())
+        .toString();
   }
 }

@@ -138,8 +138,7 @@ public class BeanConfiguration {
   @SuppressWarnings({ "unchecked" })
   // jumping over default class mappings and generics trickery
   private void initializeBeanMetadata(Services services) {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), "initializeBeanMetadata", services);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), "initializeBeanMetadata", services);
     // read and interpret the framework annotations from the beans
     try {
       RootedTypeResourceName rootedTypeResourceName;
@@ -159,14 +158,10 @@ public class BeanConfiguration {
         typeAllResource = ClassAnnotationRegistry.get().getClassAnnotation(beanType, TypeAllResource.class);
         instanceResource = ClassAnnotationRegistry.get().getClassAnnotation(beanType, InstanceResource.class);
         Class<? extends BeanBehavior<? extends StorableBean>> beanBehavior = (Class<? extends BeanBehavior<? extends StorableBean>>) (null == behavior ? BeanBehavior.class : behavior.value());
-        Class<? extends BeanTypeResource<? extends StorableBean>> beanTypeResource = (Class<? extends BeanTypeResource<? extends StorableBean>>) (null == typeResource ? BeanTypeResource.class
-            : typeResource.value());
-        Class<? extends BeanTypeMatchResource<? extends StorableBean>> beanTypeSearchResource = (Class<? extends BeanTypeMatchResource<? extends StorableBean>>) (null == typeMatchResource ? BeanTypeMatchResource.class
-            : typeMatchResource.value());
-        Class<? extends BeanTypeAllResource<? extends StorableBean>> beanTypeAllResource = (Class<? extends BeanTypeAllResource<? extends StorableBean>>) (null == typeAllResource ? BeanTypeAllResource.class
-            : typeAllResource.value());
-        Class<? extends BeanInstanceResource<? extends StorableBean>> beanInstanceResource = (Class<? extends BeanInstanceResource<? extends StorableBean>>) (null == instanceResource ? BeanInstanceResource.class
-            : instanceResource.value());
+        Class<? extends BeanTypeResource<? extends StorableBean>> beanTypeResource = (Class<? extends BeanTypeResource<? extends StorableBean>>) (null == typeResource ? BeanTypeResource.class : typeResource.value());
+        Class<? extends BeanTypeMatchResource<? extends StorableBean>> beanTypeSearchResource = (Class<? extends BeanTypeMatchResource<? extends StorableBean>>) (null == typeMatchResource ? BeanTypeMatchResource.class : typeMatchResource.value());
+        Class<? extends BeanTypeAllResource<? extends StorableBean>> beanTypeAllResource = (Class<? extends BeanTypeAllResource<? extends StorableBean>>) (null == typeAllResource ? BeanTypeAllResource.class : typeAllResource.value());
+        Class<? extends BeanInstanceResource<? extends StorableBean>> beanInstanceResource = (Class<? extends BeanInstanceResource<? extends StorableBean>>) (null == instanceResource ? BeanInstanceResource.class : instanceResource.value());
         getResourceTypeMappingsMap().put(beanType, new BeanInfo(beanBehavior, beanTypeResource, beanTypeSearchResource, beanTypeAllResource, beanInstanceResource));
         if(Log.isDebugEnabled(getClass())) {
           BeanInfo info = getResourceTypeMappingsMap().get(beanType);
@@ -181,13 +176,15 @@ public class BeanConfiguration {
         }
       }
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), "initializeBeanMetadata");
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), "initializeBeanMetadata");
     }
   }
 
   @Override
   public String toString() {
-    return new ToStringBuilder(this).append("rootedResourceNameTypeMap", getRootedResourceNameTypeMap()).append("resourceTypeMappingsMap", getResourceTypeMappingsMap()).toString();
+    return new ToStringBuilder(this)
+        .append("rootedResourceNameTypeMap", getRootedResourceNameTypeMap())
+        .append("resourceTypeMappingsMap", getResourceTypeMappingsMap())
+        .toString();
   }
 }

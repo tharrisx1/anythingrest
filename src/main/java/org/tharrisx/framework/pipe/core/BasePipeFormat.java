@@ -54,35 +54,30 @@ abstract class BasePipeFormat implements PipeFormat {
 
   protected BasePipeFormat(PipeContextProtectionFactory pipeContextProtectionMapFactory1) {
     super();
-    if(Log.isEnteringEnabled(BasePipeFormat.class))
-      Log.entering(BasePipeFormat.class, Log.METHOD_NAME_CONSTRUCTOR, pipeContextProtectionMapFactory1);
+    if(Log.isEnteringEnabled(BasePipeFormat.class)) Log.entering(BasePipeFormat.class, Log.METHOD_NAME_CONSTRUCTOR, pipeContextProtectionMapFactory1);
     try {
       this.pipeContextProtectionFactory = pipeContextProtectionMapFactory1;
     } finally {
-      if(Log.isExitingEnabled(BasePipeFormat.class))
-        Log.exiting(BasePipeFormat.class, Log.METHOD_NAME_CONSTRUCTOR);
+      if(Log.isExitingEnabled(BasePipeFormat.class)) Log.exiting(BasePipeFormat.class, Log.METHOD_NAME_CONSTRUCTOR);
     }
   }
 
   protected abstract void createEngine();
 
   protected final ReflectionProvider createPipeContextReflectionProvider() {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), "createPipeContextReflectionProvider");
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), "createPipeContextReflectionProvider");
     ReflectionProvider ret = null;
     try {
       Sun14ReflectionProvider innerReflectionProvider = new Sun14ReflectionProvider(new FieldDictionary(getSorter()));
       ret = new PipeContextReflectionProvider(innerReflectionProvider, getPipeContextProtectionMapFactory());
       return ret;
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), "createPipeContextReflectionProvider", ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), "createPipeContextReflectionProvider", ret);
     }
   }
 
   public final void write(Bean bean, Writer sink, PipeContext pipeContext) throws PipeException {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), "write", bean, sink, pipeContext);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), "write", bean, sink, pipeContext);
     try {
       ((PipeableBean) bean).setPipeContext(pipeContext);
       getEngine().toXML(bean, sink);
@@ -92,14 +87,12 @@ abstract class BasePipeFormat implements PipeFormat {
     } catch(IOException e) {
       throw new PipeException(e);
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), "write");
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), "write");
     }
   }
 
   public final Bean read(Reader source) throws PipeException {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), "read", source);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), "read", source);
     Bean ret = null;
     try {
       ret = (Bean) getEngine().fromXML(source);
@@ -109,13 +102,16 @@ abstract class BasePipeFormat implements PipeFormat {
       // bad user input here...
       throw new InvalidPipeDataException(e);
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), "read", ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), "read", ret);
     }
   }
 
   @Override
   public String toString() {
-    return new ToStringBuilder(this).append("pipeContextProtectionFactory", getPipeContextProtectionMapFactory()).append("sorter", getSorter()).append("engine", getEngine()).toString();
+    return new ToStringBuilder(this)
+        .append("pipeContextProtectionFactory", getPipeContextProtectionMapFactory())
+        .append("sorter", getSorter())
+        .append("engine", getEngine())
+        .toString();
   }
 }

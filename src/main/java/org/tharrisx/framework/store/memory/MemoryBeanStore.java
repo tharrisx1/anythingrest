@@ -300,6 +300,9 @@ public class MemoryBeanStore<T extends StorableBean> extends AbstractBeanStore<T
 
   @Override
   public String toString() {
-    return new ToStringBuilder(this).appendSuper(super.toString()).append("cache", getCache()).toString();
+    return new ToStringBuilder(this)
+        .appendSuper(super.toString())
+        .append("cache", getCache())
+        .toString();
   }
 }

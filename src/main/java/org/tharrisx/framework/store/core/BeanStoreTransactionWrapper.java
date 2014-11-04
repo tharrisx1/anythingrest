@@ -74,8 +74,7 @@ public abstract class BeanStoreTransactionWrapper<U> {
    * @throws BeanStoreException
    */
   public final U handle() throws BeanStoreException {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), getBeanStoreMethod());
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), getBeanStoreMethod());
     U ret = null;
     BeanStoreTransaction transaction = null;
     try {
@@ -86,8 +85,7 @@ public abstract class BeanStoreTransactionWrapper<U> {
     } catch(Exception e) {
       throw new BeanStoreException(new BeanStoreStackInfo(getBeanType(), transaction, getBeanStoreMethod()), e);
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), getBeanStoreMethod(), ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), getBeanStoreMethod(), ret);
     }
   }
 

@@ -125,13 +125,11 @@ class PipeableBeanInfo {
    * @param propertyOrder PipePropertyOrderInfo
    */
   void definePropertyOrder(String propertyName, PipePropertyOrderInfo propertyOrder) {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), "definePropertyOrder", propertyName, propertyOrder);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), "definePropertyOrder", propertyName, propertyOrder);
     try {
       this.propertyOrderSet.add(propertyOrder);
     } finally {
-      if(Log.isEnteringEnabled(getClass()))
-        Log.exiting(getClass(), "definePropertyOrder");
+      if(Log.isEnteringEnabled(getClass())) Log.exiting(getClass(), "definePropertyOrder");
     }
   }
 
@@ -142,13 +140,11 @@ class PipeableBeanInfo {
    * @param protection ProtectionInfo
    */
   void defineProtection(String propertyName, ProtectionInfo protection) {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), "defineProtection", propertyName, protection);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), "defineProtection", propertyName, protection);
     try {
       this.protectionMap.put(propertyName, protection);
     } finally {
-      if(Log.isEnteringEnabled(getClass()))
-        Log.exiting(getClass(), "defineProtection");
+      if(Log.isEnteringEnabled(getClass())) Log.exiting(getClass(), "defineProtection");
     }
   }
 
@@ -159,13 +155,11 @@ class PipeableBeanInfo {
    * @param encryption EncryptionInfo
    */
   void defineEncryption(String propertyName, EncryptionInfo encryption) {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), "defineEncrypted", propertyName, encryption);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), "defineEncrypted", propertyName, encryption);
     try {
       this.encryptionMap.put(propertyName, encryption);
     } finally {
-      if(Log.isEnteringEnabled(getClass()))
-        Log.exiting(getClass(), "defineEncrypted");
+      if(Log.isEnteringEnabled(getClass())) Log.exiting(getClass(), "defineEncrypted");
     }
   }
 

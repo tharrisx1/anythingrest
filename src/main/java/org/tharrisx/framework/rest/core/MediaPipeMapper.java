@@ -55,8 +55,7 @@ class MediaPipeMapper {
   }
 
   static MediaPipe getMediaPipe(List<MediaType> acceptableMediaTypes) {
-    if(Log.isEnteringEnabled(MediaPipeMapper.class))
-      Log.entering(MediaPipeMapper.class, "getMediaPipe", acceptableMediaTypes);
+    if(Log.isEnteringEnabled(MediaPipeMapper.class)) Log.entering(MediaPipeMapper.class, "getMediaPipe", acceptableMediaTypes);
     MediaPipe ret = null;
     try {
       for(MediaType mediaType : acceptableMediaTypes) {
@@ -72,8 +71,7 @@ class MediaPipeMapper {
         ret = new MediaPipe(MediaType.APPLICATION_XML_TYPE, "xml");
       return ret;
     } finally {
-      if(Log.isExitingEnabled(MediaPipeMapper.class))
-        Log.exiting(MediaPipeMapper.class, "getMediaPipe", ret);
+      if(Log.isExitingEnabled(MediaPipeMapper.class)) Log.exiting(MediaPipeMapper.class, "getMediaPipe", ret);
     }
   }
 

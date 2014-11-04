@@ -44,8 +44,7 @@ class PipeContextReflectionProvider extends ReflectionProviderWrapper {
   PipeContextReflectionProvider(final Sun14ReflectionProvider wrapped1, final PipeContextProtectionFactory pipeContextProtectionMapFactory1) {
     super(wrapped1);
     this.pipeContextProtectionFactory = pipeContextProtectionMapFactory1;
-    if(Log.isTraceEnabled(PipeContextReflectionProvider.class))
-      Log.entering(PipeContextReflectionProvider.class, Log.METHOD_NAME_CONSTRUCTOR, "Created.");
+    if(Log.isTraceEnabled(PipeContextReflectionProvider.class)) Log.entering(PipeContextReflectionProvider.class, Log.METHOD_NAME_CONSTRUCTOR, "Created.");
   }
 
   // implement wrapped methods
@@ -236,8 +235,7 @@ class PipeContextReflectionProvider extends ReflectionProviderWrapper {
           ret = false; // skipping
         } else {
           ret = contextProtectionMap.contains(propertyProtectionType);
-          if(Log.isDebugEnabled(getClass()))
-            Log.debug(getClass(), "isBeanPropertyAllowed", "Property " + this.beanType + "." + propertyName + "' is " + (ret ? "" : "NOT ") + "allowed for context " + this.pipeContext);
+          if(Log.isDebugEnabled(getClass())) Log.debug(getClass(), "isBeanPropertyAllowed", "Property " + this.beanType + "." + propertyName + "' is " + (ret ? "" : "NOT ") + "allowed for context " + this.pipeContext);
         }
         return ret;
       } finally {

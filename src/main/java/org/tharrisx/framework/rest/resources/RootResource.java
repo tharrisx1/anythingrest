@@ -83,8 +83,7 @@ public final class RootResource {
    */
   @Path("{rootedBeanTypeResourceName}")
   public BeanTypeResource<? extends StorableBean> followBeanTypePath(final @PathParam("rootedBeanTypeResourceName") String rootedBeanTypeResourceName) {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), METHOD_FOLLOW_BEAN_TYPE_PATH, rootedBeanTypeResourceName);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), METHOD_FOLLOW_BEAN_TYPE_PATH, rootedBeanTypeResourceName);
     BeanTypeResource<? extends Bean> ret = null;
     TimingMemento timing = null;
     if(ServicesRegistry.getServices().getCallStatistician().isCallStatisticsEnabled())
@@ -108,8 +107,7 @@ public final class RootResource {
       }
       throw e;
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), METHOD_FOLLOW_BEAN_TYPE_PATH, ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), METHOD_FOLLOW_BEAN_TYPE_PATH, ret);
     }
   }
 
@@ -121,8 +119,7 @@ public final class RootResource {
    */
   @GET
   public Response getRootedResourceNames() {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), METHOD_GET_ROOTED_RESOURCE_NAMES);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), METHOD_GET_ROOTED_RESOURCE_NAMES);
     Response ret = null;
     TimingMemento timing = null;
     if(ServicesRegistry.getServices().getCallStatistician().isCallStatisticsEnabled())
@@ -135,8 +132,7 @@ public final class RootResource {
       }
       BeanList<ResourceNameBean> beans = new BeanList<>(rootedResourceList);
       String body = req.getPipe().writeToString(beans, req.getPipeContext());
-      if(Log.isDebugEnabled(getClass()))
-        Log.debug(getClass(), METHOD_GET_ROOTED_RESOURCE_NAMES, "Sending " + req.getPipeName() + " response body: " + body);
+      if(Log.isDebugEnabled(getClass())) Log.debug(getClass(), METHOD_GET_ROOTED_RESOURCE_NAMES, "Sending " + req.getPipeName() + " response body: " + body);
       ret = Response.ok(body).type(req.getResponseMediaType()).build();
       String callName = ResourceCore.makeCallName(ResourceNameBean.class, this, "GET", req.getPipeName());
       ServicesRegistry.getServices().getCallStatistician().recordCall(callName, true, req.getTiming());
@@ -150,22 +146,19 @@ public final class RootResource {
       }
       throw e;
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), METHOD_GET_ROOTED_RESOURCE_NAMES, ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), METHOD_GET_ROOTED_RESOURCE_NAMES, ret);
     }
   }
 
   private ResourceRequestInfo makeResourceRequestInfo(TimingMemento timing) {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), METHOD_MAKE_RESOURCE_REQUEST_INFO);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), METHOD_MAKE_RESOURCE_REQUEST_INFO);
     ResourceRequestInfo ret = null;
     try {
       PipeContext pipeContext = PipeContext.AS_PUBLIC; // $$$ All calls are public, no admin rest interface for the moment.
       ret = new ResourceRequestInfo(pipeContext, getUriInfo(), getRequest(), getHttpHeaders(), getProviders(), timing);
       return ret;
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), METHOD_MAKE_RESOURCE_REQUEST_INFO, ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), METHOD_MAKE_RESOURCE_REQUEST_INFO, ret);
     }
   }
 }

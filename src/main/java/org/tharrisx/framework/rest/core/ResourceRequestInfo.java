@@ -69,8 +69,7 @@ public class ResourceRequestInfo {
   }
 
   public ResourceRequestInfo(final PipeContext pipeContext1, final UriInfo uriInfo1, final Request request1, final HttpHeaders httpHeaders1, final Providers providers1, final TimingMemento timing1) {
-    if(Log.isEnteringEnabled(ResourceRequestInfo.class))
-      Log.entering(ResourceRequestInfo.class, Log.METHOD_NAME_CONSTRUCTOR, pipeContext1, uriInfo1, request1, httpHeaders1, providers1);
+    if(Log.isEnteringEnabled(ResourceRequestInfo.class)) Log.entering(ResourceRequestInfo.class, Log.METHOD_NAME_CONSTRUCTOR, pipeContext1, uriInfo1, request1, httpHeaders1, providers1);
     this.pipeContext = pipeContext1;
     this.uriInfo = uriInfo1;
     this.request = request1;
@@ -81,8 +80,7 @@ public class ResourceRequestInfo {
     this.pipe = ServicesRegistry.getServices().getPipeManager().getPipe(getPipeName());
     this.responseMediaType = mediaPipe.getMediaType();
     this.timing = timing1;
-    if(Log.isExitingEnabled(ResourceRequestInfo.class))
-      Log.exiting(ResourceRequestInfo.class, Log.METHOD_NAME_CONSTRUCTOR);
+    if(Log.isExitingEnabled(ResourceRequestInfo.class)) Log.exiting(ResourceRequestInfo.class, Log.METHOD_NAME_CONSTRUCTOR);
   }
 
   @Override

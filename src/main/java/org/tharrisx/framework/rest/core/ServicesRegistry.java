@@ -25,8 +25,7 @@ public final class ServicesRegistry {
   private static BeanConfiguration beanConfiguration = null;
 
   public static Services getServices() {
-    if(Log.isEnteringEnabled(Services.class))
-      Log.entering(Services.class, "getServices");
+    if(Log.isEnteringEnabled(Services.class)) Log.entering(Services.class, "getServices");
     Services ret = null;
     try {
       read.lock();
@@ -36,14 +35,12 @@ public final class ServicesRegistry {
       return ret;
     } finally {
       read.unlock();
-      if(Log.isExitingEnabled(Services.class))
-        Log.exiting(Services.class, "getServices", ret);
+      if(Log.isExitingEnabled(Services.class)) Log.exiting(Services.class, "getServices", ret);
     }
   }
 
   public static BeanConfiguration getBeanConfiguration() {
-    if(Log.isEnteringEnabled(Services.class))
-      Log.entering(Services.class, "getBeanConfiguration");
+    if(Log.isEnteringEnabled(Services.class)) Log.entering(Services.class, "getBeanConfiguration");
     BeanConfiguration ret = null;
     try {
       read.lock();
@@ -53,22 +50,19 @@ public final class ServicesRegistry {
       return ret;
     } finally {
       read.unlock();
-      if(Log.isExitingEnabled(Services.class))
-        Log.exiting(Services.class, "getBeanConfiguration", ret);
+      if(Log.isExitingEnabled(Services.class)) Log.exiting(Services.class, "getBeanConfiguration", ret);
     }
   }
 
   public static void registerServices(final Services arg) {
-    if(Log.isEnteringEnabled(Services.class))
-      Log.entering(Services.class, "registerServices");
+    if(Log.isEnteringEnabled(Services.class)) Log.entering(Services.class, "registerServices");
     try {
       write.lock();
       services = arg;
       beanConfiguration = new BeanConfiguration(services);
     } finally {
       write.unlock();
-      if(Log.isExitingEnabled(Services.class))
-        Log.exiting(Services.class, "registerServices");
+      if(Log.isExitingEnabled(Services.class)) Log.exiting(Services.class, "registerServices");
     }
   }
 }

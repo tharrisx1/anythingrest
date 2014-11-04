@@ -30,8 +30,7 @@ public class PipeBeanPropertySorter implements FieldKeySorter {
   @Override
   @SuppressWarnings({ "rawtypes", "unchecked" })
   public Map sort(Class type, Map keyedByFieldKey) {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), "sort", type, keyedByFieldKey);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), "sort", type, keyedByFieldKey);
     Map ret = null;
     try {
       if(getMap().containsKey(type)) {
@@ -47,19 +46,16 @@ public class PipeBeanPropertySorter implements FieldKeySorter {
       }
       return ret;
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), "sort", ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), "sort", ret);
     }
   }
 
   public void registerFieldOrder(Class<?> type, String[] fields) {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), "registerFieldOrder", type, fields);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), "registerFieldOrder", type, fields);
     try {
       getMap().put(type, new FieldComparator(fields));
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), "registerFieldOrder");
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), "registerFieldOrder");
     }
   }
 
@@ -74,8 +70,7 @@ public class PipeBeanPropertySorter implements FieldKeySorter {
     }
 
     public int compare(String first, String second) {
-      if(Log.isEnteringEnabled(getClass()))
-        Log.entering(getClass(), "compare", first, second);
+      if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), "compare", first, second);
       int ret = 0;
       try {
         int firstPosition = -1, secondPosition = -1;
@@ -96,8 +91,7 @@ public class PipeBeanPropertySorter implements FieldKeySorter {
         }
         return ret;
       } finally {
-        if(Log.isExitingEnabled(getClass()))
-          Log.exiting(getClass(), "compare", ret);
+        if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), "compare", ret);
       }
     }
 

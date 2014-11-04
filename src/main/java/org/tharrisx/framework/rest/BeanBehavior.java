@@ -42,74 +42,63 @@ public class BeanBehavior<T extends StorableBean> {
   }
 
   public BeanBehavior(final Class<T> beanType1) {
-    if(Log.isEnteringEnabled(BeanBehavior.class))
-      Log.entering(BeanBehavior.class, Log.METHOD_NAME_CONSTRUCTOR, beanType1);
+    if(Log.isEnteringEnabled(BeanBehavior.class)) Log.entering(BeanBehavior.class, Log.METHOD_NAME_CONSTRUCTOR, beanType1);
     try {
       this.beanType = beanType1;
       this.beanStore = ServicesRegistry.getServices().getBeanStoreFactory().getBeanStore(getBeanType());
     } finally {
-      if(Log.isExitingEnabled(BeanBehavior.class))
-        Log.exiting(BeanBehavior.class, Log.METHOD_NAME_CONSTRUCTOR);
+      if(Log.isExitingEnabled(BeanBehavior.class)) Log.exiting(BeanBehavior.class, Log.METHOD_NAME_CONSTRUCTOR);
     }
   }
 
   public BeanList<T> getAllBeans() {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), "getAllBeans");
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), "getAllBeans");
     BeanList<T> ret = null;
     try {
       Map<String, String> propertyValues = new HashMap<>();
       ret = getBeanStore().getAllMatchingBeans(propertyValues);
       return ret;
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), "getAllBeans", ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), "getAllBeans", ret);
     }
   }
 
   public PageableBeanList<T> getBeans(int start, int end) {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), "getBeans", start, end);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), "getBeans", start, end);
     PageableBeanList<T> ret = null;
     try {
       Map<String, String> propertyValues = new HashMap<>();
       ret = matchBeans(start, end, propertyValues);
       return ret;
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), "getBeans", ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), "getBeans", ret);
     }
   }
 
   public PageableBeanList<T> matchBeans(int start, int end, Map<String, String> propertyValues) {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), "matchBeans", start, end, propertyValues);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), "matchBeans", start, end, propertyValues);
     PageableBeanList<T> ret = null;
     try {
       ret = getBeanStore().getPageOfMatchingBeans(start, end, propertyValues);
       return ret;
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), "matchBeans", ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), "matchBeans", ret);
     }
   }
 
   public T getBean(String beanId) {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), "getBean", beanId);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), "getBean", beanId);
     T ret = null;
     try {
       ret = getBeanStore().getBean(beanId);
       return ret;
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), "getBean", ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), "getBean", ret);
     }
   }
 
   public T postBean(T bean) {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), "postBean", bean);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), "postBean", bean);
     T ret = null;
     try {
       BeanStoreTransaction transaction = ServicesRegistry.getServices().getBeanStoreFactory().beginTransaction(getBeanType(), "postBean");
@@ -117,14 +106,12 @@ public class BeanBehavior<T extends StorableBean> {
       ServicesRegistry.getServices().getBeanStoreFactory().endTransaction(getBeanType(), transaction);
       return ret;
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), "postBean", ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), "postBean", ret);
     }
   }
 
   public T putBean(T bean) {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), "putBean", bean);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), "putBean", bean);
     T ret = null;
     try {
       BeanStoreTransaction transaction = ServicesRegistry.getServices().getBeanStoreFactory().beginTransaction(getBeanType(), "putBean");
@@ -132,14 +119,12 @@ public class BeanBehavior<T extends StorableBean> {
       ServicesRegistry.getServices().getBeanStoreFactory().endTransaction(getBeanType(), transaction);
       return ret;
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), "putBean", ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), "putBean", ret);
     }
   }
 
   public boolean deleteBean(String beanId) {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), "deleteBean", beanId);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), "deleteBean", beanId);
     boolean ret = false;
     try {
       BeanStoreTransaction transaction = ServicesRegistry.getServices().getBeanStoreFactory().beginTransaction(getBeanType(), "deleteBean");
@@ -147,8 +132,7 @@ public class BeanBehavior<T extends StorableBean> {
       ServicesRegistry.getServices().getBeanStoreFactory().endTransaction(getBeanType(), transaction);
       return ret;
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), "deleteBean", ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), "deleteBean", ret);
     }
   }
 

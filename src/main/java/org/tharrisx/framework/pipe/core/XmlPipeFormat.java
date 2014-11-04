@@ -14,13 +14,11 @@ public class XmlPipeFormat extends BasePipeFormat {
 
   @Override
   protected void createEngine() {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), "initializeEngine");
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), "initializeEngine");
     try {
       setEngine(new XStream(createPipeContextReflectionProvider(), new StaxDriver()));
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), "initializeEngine");
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), "initializeEngine");
     }
   }
 }

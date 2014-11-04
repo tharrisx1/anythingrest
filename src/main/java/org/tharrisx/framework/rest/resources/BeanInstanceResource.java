@@ -53,13 +53,11 @@ public abstract class BeanInstanceResource<T extends StorableBean> {
   }
 
   public BeanInstanceResource(final ResourceCore<T> resourceCore1, final ResourceRequestInfo resourceRequestInfo1, final String beanId1) {
-    if(Log.isEnteringEnabled(BeanInstanceResource.class))
-      Log.entering(BeanInstanceResource.class, Log.METHOD_NAME_CONSTRUCTOR, resourceCore1, resourceRequestInfo1, beanId1);
+    if(Log.isEnteringEnabled(BeanInstanceResource.class)) Log.entering(BeanInstanceResource.class, Log.METHOD_NAME_CONSTRUCTOR, resourceCore1, resourceRequestInfo1, beanId1);
     this.resourceCore = resourceCore1;
     this.resourceRequestInfo = resourceRequestInfo1;
     this.beanId = beanId1;
-    if(Log.isExitingEnabled(BeanInstanceResource.class))
-      Log.exiting(BeanInstanceResource.class, Log.METHOD_NAME_CONSTRUCTOR);
+    if(Log.isExitingEnabled(BeanInstanceResource.class)) Log.exiting(BeanInstanceResource.class, Log.METHOD_NAME_CONSTRUCTOR);
   }
 
   /**
@@ -70,16 +68,14 @@ public abstract class BeanInstanceResource<T extends StorableBean> {
   @GET
   @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.TEXT_XML })
   public Response getBean() {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), METHOD_GET_BEAN);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), METHOD_GET_BEAN);
     Response ret = null;
     try {
       T bean = getResourceCore().getBeanBehavior().getBean(getBeanId());
       ret = getResourceCore().makeGetSuccessResponse(getResourceRequestInfo(), this, bean);
       return ret;
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), METHOD_GET_BEAN, ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), METHOD_GET_BEAN, ret);
     }
   }
 
@@ -92,8 +88,7 @@ public abstract class BeanInstanceResource<T extends StorableBean> {
   @PUT
   @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.TEXT_XML })
   public Response putBean(Reader beanBody) {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), METHOD_PUT_BEAN, beanBody);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), METHOD_PUT_BEAN, beanBody);
     Response ret = null;
     try {
       try {
@@ -104,8 +99,7 @@ public abstract class BeanInstanceResource<T extends StorableBean> {
       }
       return ret;
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), METHOD_PUT_BEAN, ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), METHOD_PUT_BEAN, ret);
     }
   }
 
@@ -117,16 +111,14 @@ public abstract class BeanInstanceResource<T extends StorableBean> {
    */
   @DELETE
   public void deleteBean() {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), METHOD_DELETE_BEAN);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), METHOD_DELETE_BEAN);
     try {
       boolean wasPresent = getResourceCore().getBeanBehavior().deleteBean(getBeanId());
       if(!wasPresent)
         throw new NotFoundException();
       getResourceCore().recordDeleteSuccess(getResourceRequestInfo(), this);
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), METHOD_DELETE_BEAN);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), METHOD_DELETE_BEAN);
     }
   }
 

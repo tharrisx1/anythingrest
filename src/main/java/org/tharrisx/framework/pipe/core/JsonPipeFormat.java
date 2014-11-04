@@ -14,13 +14,11 @@ public class JsonPipeFormat extends BasePipeFormat {
 
   @Override
   protected void createEngine() {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), "createEngine");
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), "createEngine");
     try {
       setEngine(new XStream(createPipeContextReflectionProvider(), new JettisonMappedXmlDriver()));
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), "createEngine");
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), "createEngine");
     }
   }
 }

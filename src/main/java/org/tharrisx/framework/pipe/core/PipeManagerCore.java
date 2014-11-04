@@ -42,8 +42,7 @@ public class PipeManagerCore {
   }
 
   public void registerBean(Class<? extends Bean> beanType) throws InvalidBeanTypeException {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), "registerBean", beanType);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), "registerBean", beanType);
     try {
       beanType.newInstance(); // test now, to make sure, one time cost at start only
       getRegisteredBeanTypes().add(beanType);
@@ -52,8 +51,7 @@ public class PipeManagerCore {
     } catch(IllegalAccessException e) {
       throw new InvalidBeanTypeException(e);
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), "registerBean");
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), "registerBean");
     }
   }
 
@@ -62,8 +60,7 @@ public class PipeManagerCore {
   }
 
   public void definePipe(final String pipeName, final Class<? extends PipeFormat> pipeFormatType, final PipeContextProtectionFactory pipeContextProtectionFactory) throws NoPipeFoundException {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), "definePipe", pipeName, pipeFormatType, pipeContextProtectionFactory);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), "definePipe", pipeName, pipeFormatType, pipeContextProtectionFactory);
     try {
       PipeFormat pipeFormatImpl = pipeFormatType.getConstructor(PipeContextProtectionFactory.class).newInstance(pipeContextProtectionFactory);
       Pipe pipe = new Pipe(new PipeCore(pipeName, pipeFormatImpl));
@@ -77,14 +74,12 @@ public class PipeManagerCore {
     } catch(IllegalAccessException e) {
       throw new NoPipeFoundException(e);
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), "definePipe");
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), "definePipe");
     }
   }
 
   public void initialize() {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), "initialize");
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), "initialize");
     try {
       PipeableBeanInfo beanInfo = null;
       for(Class<? extends Bean> beanType : getRegisteredBeanTypes()) {
@@ -92,8 +87,7 @@ public class PipeManagerCore {
         beanInfo = PipedBeanInfoFactory.getBeanInfo(beanType);
         String[] sortedPropertyNames = beanInfo.getSortedPropertyNames().toArray(new String[0]);
         for(Pipe pipe : getPipes().values()) {
-          if(Log.isDebugEnabled(getClass()))
-            Log.debug(getClass(), "initialize", "Registering property order for bean type " + beanType + ". Sorted property names: " + StringUtils.unrollArrayForDebug(sortedPropertyNames));
+          if(Log.isDebugEnabled(getClass())) Log.debug(getClass(), "initialize", "Registering property order for bean type " + beanType + ". Sorted property names: " + StringUtils.unrollArrayForDebug(sortedPropertyNames));
           getPipeFormat(pipe).getSorter().registerFieldOrder(beanType, sortedPropertyNames);
         }
       }
@@ -111,14 +105,12 @@ public class PipeManagerCore {
         }
       }
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), "initialize");
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), "initialize");
     }
   }
 
   public Pipe getPipe(String pipeName) throws NoPipeFoundException {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), "getPipe", pipeName);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), "getPipe", pipeName);
     Pipe ret = null;
     try {
       ret = getPipes().get(pipeName);
@@ -126,8 +118,7 @@ public class PipeManagerCore {
         throw new NoPipeFoundException("No pipe was created with name '" + pipeName + "'");
       return ret;
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), "getPipe", ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), "getPipe", ret);
     }
   }
 

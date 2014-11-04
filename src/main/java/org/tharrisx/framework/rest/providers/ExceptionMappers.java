@@ -124,8 +124,7 @@ public class ExceptionMappers {
     @Override
     public final Response toResponse(E e) {
       // User error... Shouldn't treat as so important. Probably should log elsewhere... See above note.
-      if(Log.isInfoEnabled(ExceptionMappers.class))
-        Log.info(ExceptionMappers.class, "UserErrorMapper", getMessage(), e);
+      if(Log.isInfoEnabled(ExceptionMappers.class)) Log.info(ExceptionMappers.class, "UserErrorMapper", getMessage(), e);
       return makeResponse(getResponseStatus());
     }
   }

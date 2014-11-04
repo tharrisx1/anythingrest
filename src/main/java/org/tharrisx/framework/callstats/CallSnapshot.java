@@ -145,12 +145,25 @@ public class CallSnapshot extends Bean implements Comparable<CallSnapshot> {
 
   @Override
   public String toString() {
-    return new ToStringBuilder(this).append("name", getName()).append("lastStatReset", getLastStatReset()).append("lastCallStamp", getLastCallStamp())
-        .append("lastCallDuration", getLastCallDuration()).append("successCount", getSuccessCount()).append("successTotalDuration", getSuccessTotalDuration())
-        .append("successMeanDuration", getSuccessMeanDuration()).append("successMedianDuration", getSuccessMedianDuration()).append("successMeanMedianDifference", getSuccessMeanMedianDifference())
-        .append("successStandardDeviation", getSuccessStandardDeviation()).append("successVariation", getSuccessVariation()).append("failureCount", getFailureCount())
-        .append("failureTotalDuration", getFailureTotalDuration()).append("failureMeanDuration", getFailureMeanDuration()).append("failureMedianDuration", getFailureMedianDuration())
-        .append("failureMeanMedianDifference", getFailureMeanMedianDifference()).append("failureStandardDeviation", getFailureStandardDeviation()).append("failureVariation", getFailureVariation())
+    return new ToStringBuilder(this)
+        .append("name", getName())
+        .append("lastStatReset", getLastStatReset())
+        .append("lastCallStamp", getLastCallStamp())
+        .append("lastCallDuration", getLastCallDuration())
+        .append("successCount", getSuccessCount())
+        .append("successTotalDuration", getSuccessTotalDuration())
+        .append("successMeanDuration", getSuccessMeanDuration())
+        .append("successMedianDuration", getSuccessMedianDuration())
+        .append("successMeanMedianDifference", getSuccessMeanMedianDifference())
+        .append("successStandardDeviation", getSuccessStandardDeviation())
+        .append("successVariation", getSuccessVariation())
+        .append("failureCount", getFailureCount())
+        .append("failureTotalDuration", getFailureTotalDuration())
+        .append("failureMeanDuration", getFailureMeanDuration())
+        .append("failureMedianDuration", getFailureMedianDuration())
+        .append("failureMeanMedianDifference", getFailureMeanMedianDifference())
+        .append("failureStandardDeviation", getFailureStandardDeviation())
+        .append("failureVariation", getFailureVariation())
         .toString();
   }
 }

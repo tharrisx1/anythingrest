@@ -55,24 +55,20 @@ public class CallStatistician {
   public void recordCall(String callName, boolean success, TimingMemento timing) {
     if(!isCallStatisticsEnabled())
       return;
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), "recordCall", callName, success, timing);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), "recordCall", callName, success, timing);
     try {
       double duration = timing.getNanoDuration();
       get(callName).recordCall(success, duration);
-      if(Log.isInfoEnabled(getClass()))
-        Log.info(getClass(), "recordCall", "Call " + callName + " " + (success ? "succeeded" : "failed") + ". Took " + DurationFormatter.formatDuration(duration));
+      if(Log.isInfoEnabled(getClass())) Log.info(getClass(), "recordCall", "Call " + callName + " " + (success ? "succeeded" : "failed") + ". Took " + DurationFormatter.formatDuration(duration));
       // $$$ temporary, once every X calls, a call stats report is logged. 
       if(this.reportCounter > REPORT_COUNTER_MAX) {
-        if(Log.isInfoEnabled(getClass()))
-          Log.info(getClass(), "recordCall", getSimpleCallSnapshotReport());
+        if(Log.isInfoEnabled(getClass())) Log.info(getClass(), "recordCall", getSimpleCallSnapshotReport());
         this.reportCounter = 0;
       } else {
         this.reportCounter++;
       }
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), "recordCall");
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), "recordCall");
     }
   }
 
@@ -80,8 +76,7 @@ public class CallStatistician {
   private volatile int reportCounter = 0;
 
   public List<CallSnapshot> getSnapshots() {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), "getSnapshots");
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), "getSnapshots");
     List<CallSnapshot> ret = null;
     try {
       ret = new LinkedList<>();
@@ -91,8 +86,7 @@ public class CallStatistician {
       Collections.sort(ret);
       return ret;
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), "getSnapshots", ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), "getSnapshots", ret);
     }
   }
 
@@ -118,8 +112,7 @@ public class CallStatistician {
   }
 
   private CallStatistics get(String callName) {
-    if(Log.isEnteringEnabled(getClass()))
-      Log.entering(getClass(), "get", callName);
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), "get", callName);
     CallStatistics ret = null;
     try {
       ret = this.callStatisticsMap.get(callName);
@@ -129,8 +122,7 @@ public class CallStatistician {
       }
       return ret;
     } finally {
-      if(Log.isExitingEnabled(getClass()))
-        Log.exiting(getClass(), "get", ret);
+      if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), "get", ret);
     }
   }
 }
