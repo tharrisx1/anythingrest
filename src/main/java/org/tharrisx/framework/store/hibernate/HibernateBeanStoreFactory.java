@@ -60,7 +60,6 @@ public class HibernateBeanStoreFactory extends AbstractBeanStoreFactory {
     try {
       Session hibSession = getSessionFactory().openSession();
       Transaction hibTransaction = hibSession.beginTransaction();
-      hibTransaction.begin();
       ret = new HibernateBeanStoreTransaction(transactionName, hibSession, hibTransaction);
       if(Log.isInfoEnabled(getClass())) Log.info(getClass(), METHOD_BEGIN_TRANSACTION, "Transaction begun for mainBeanType " + mainBeanType + " named '" + transactionName + "'.");
       return ret;

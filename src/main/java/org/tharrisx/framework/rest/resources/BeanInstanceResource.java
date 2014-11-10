@@ -6,6 +6,7 @@ import java.io.Reader;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
@@ -17,8 +18,6 @@ import org.tharrisx.framework.rest.core.ResourceCore;
 import org.tharrisx.framework.rest.core.ResourceRequestInfo;
 import org.tharrisx.framework.store.StorableBean;
 import org.tharrisx.util.log.Log;
-
-import com.sun.jersey.api.NotFoundException;
 
 /**
  * The REST resource that acts as the item resource, providing GET, PUT, and DELETE of an existing item.
@@ -87,6 +86,7 @@ public abstract class BeanInstanceResource<T extends StorableBean> {
    */
   @PUT
   @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.TEXT_XML })
+  @Produces({ MediaType.TEXT_PLAIN })
   public Response putBean(Reader beanBody) {
     if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), METHOD_PUT_BEAN, beanBody);
     Response ret = null;

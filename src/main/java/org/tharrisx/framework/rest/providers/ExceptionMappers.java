@@ -18,12 +18,13 @@ import org.tharrisx.util.log.Log;
  * Maps internal exceptions into standard JAX-RS exceptions handled in the RESTful way.
  * 
  * $$$ The ones at INFO logging should either be logged somewhere else, or, since they are user errors,
- * $$$ they perhaps should be stored for use in abuse blocking, to add some D-O-S attack protection.
+ * $$$ they perhaps should be stored for use in abuse blocking, to add some DDOS attack protection.
  * 
  * @author tharrisx
  * @since 1.0.0
  * @version 1.0.0
  */
+@Provider
 public class ExceptionMappers {
 
   @Provider

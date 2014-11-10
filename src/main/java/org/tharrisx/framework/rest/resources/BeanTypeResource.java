@@ -3,7 +3,6 @@ package org.tharrisx.framework.rest.resources;
 import java.io.IOException;
 import java.io.Reader;
 
-import javax.ws.rs.Consumes;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -146,12 +145,13 @@ public abstract class BeanTypeResource<T extends StorableBean> {
   /**
    * LEAF POST Creates the requested bean in the BeanStore.
    * 
-   * Example URL: http://host:port/rest/users
+   * Example URL: http://host:port/context/users
    * @param entityBody Reader The body of the request, for unmarshalling
    * @return Response The REST response
    */
   @POST
-  @Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.TEXT_XML })
+  //@Consumes({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.TEXT_XML })
+  //@Produces({ MediaType.TEXT_PLAIN })
   public Response postBean(Reader entityBody) {
     if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), METHOD_POST_BEAN, entityBody);
     Response ret = null;

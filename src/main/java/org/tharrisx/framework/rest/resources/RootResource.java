@@ -3,7 +3,9 @@ package org.tharrisx.framework.rest.resources;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.inject.Singleton;
 import javax.ws.rs.GET;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -27,9 +29,6 @@ import org.tharrisx.framework.rest.core.ResourceRequestInfo;
 import org.tharrisx.framework.rest.core.ServicesRegistry;
 import org.tharrisx.framework.store.StorableBean;
 import org.tharrisx.util.log.Log;
-
-import com.sun.jersey.api.NotFoundException;
-import com.sun.jersey.spi.resource.Singleton;
 
 /**
  * Root REST resource, where all the BeanTypeResources 'hang' from. Main entry point to the framework application.

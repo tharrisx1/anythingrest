@@ -1,5 +1,6 @@
 package org.tharrisx.framework.pipe.converters;
 
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -25,14 +26,19 @@ public class StringDateConverter extends GregorianCalendarConverter {
   @SuppressWarnings("rawtypes")
   @Override
   public boolean canConvert(Class type) {
-    return type.equals(Date.class);
+    return type.equals(Date.class) || type.equals(Timestamp.class);
   }
 
   @Override
   public void marshal(Object source, HierarchicalStreamWriter writer, MarshallingContext context) {
-    Date date = (Date) source;
     GregorianCalendar calendar = new GregorianCalendar();
-    calendar.setTime(date);
+    if(source instanceof Timestamp) {
+      Timestamp timestamp = (Timestamp) source;
+      calendar.setTime(new Date(timestamp.getTime()));
+    } else {
+      Date date = (Date) source;
+      calendar.setTime(date);
+    }
     writer.setValue(DateUtils.getStringFromCalendar(calendar));
   }
 
@@ -41,6 +47,7 @@ public class StringDateConverter extends GregorianCalendarConverter {
     Date result = null;
     try {
       result = ((GregorianCalendar) DateUtils.getCalendarFromString(reader.getValue())).getTime();
+      //result = new Timestamp(dateResult.getTime());
     } catch(ParseException e) {
       throw new PipeException(e);
     }

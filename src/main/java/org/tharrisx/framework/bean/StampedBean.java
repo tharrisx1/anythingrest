@@ -7,9 +7,13 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.TypeDefs;
 import org.tharrisx.framework.pipe.annotations.PipePropertyOrder;
 import org.tharrisx.framework.pipe.converters.StringDateConverter;
 import org.tharrisx.framework.store.StorableBean;
+import org.tharrisx.framework.store.hibernate.DatetimeUserType;
 
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 
@@ -21,10 +25,13 @@ import com.thoughtworks.xstream.annotations.XStreamConverter;
  * @version 1.0.0
  */
 @MappedSuperclass
+@TypeDefs({
+  @TypeDef(name="datetimeUserType", typeClass = DatetimeUserType.class)
+})
 public abstract class StampedBean extends StorableBean {
 
   @Basic
-  //@Type(type = "LongTimestamp")
+  @Type(type = "datetimeUserType")
   @Column(length = 7, nullable = false, updatable = false)
   @PipePropertyOrder(100.0)
   @XStreamConverter(StringDateConverter.class)
@@ -39,7 +46,7 @@ public abstract class StampedBean extends StorableBean {
   }
 
   @Basic
-  //@Type(type = "LongTimestamp")
+  @Type(type = "datetimeUserType")
   @Column(length = 7, nullable = false, updatable = false)
   @PipePropertyOrder(100.0)
   @XStreamConverter(StringDateConverter.class)
