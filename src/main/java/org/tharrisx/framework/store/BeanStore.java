@@ -100,7 +100,7 @@ public interface BeanStore<T extends StorableBean> {
    * @return ExamplePageableBeanList<T>
    * @throws BeanStoreException
    */
-  PageableBeanList<T> getPageOfMatchingBeans(int start, int end, Map<String, String> propertyValues) throws BeanStoreException;
+  PageableBeanList<T> getPageOfMatchingBeans(int start, int end, String sortBy, String sortDirection, Map<String, String> propertyValues) throws BeanStoreException;
 
   /**
    * Get the pageable list of beans via a 'Named Query'.
@@ -112,7 +112,7 @@ public interface BeanStore<T extends StorableBean> {
    * @return ExamplePageableBeanList<T>
    * @throws BeanStoreException
    */
-  PageableBeanList<T> getPageOfBeansViaQuery(int start, int end, String queryName, Object... queryParameters) throws BeanStoreException;
+  PageableBeanList<T> getPageOfBeansViaQuery(int start, int end, String sortBy, String sortDirection, String queryName, Object... queryParameters) throws BeanStoreException;
 
   /**
    * Create or update a bean in the BeanStore.

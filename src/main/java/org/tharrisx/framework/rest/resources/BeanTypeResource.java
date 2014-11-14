@@ -128,11 +128,15 @@ public abstract class BeanTypeResource<T extends StorableBean> {
    */
   @GET
   @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.TEXT_XML })
-  public Response getPageOfBeans(@DefaultValue("0") @QueryParam("start") final int start, @DefaultValue("9") @QueryParam("end") final int end) {
+  public Response getPageOfBeans(
+      @DefaultValue("0") @QueryParam("start") final int start,
+      @DefaultValue("9") @QueryParam("end") final int end,
+      @DefaultValue("") @QueryParam("sortBy") final String sortBy,
+      @DefaultValue("") @QueryParam("sortDirection") final String sortDirection) {
     if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), METHOD_GET_PAGE_OF_BEANS, start, end);
     Response ret = null;
     try {
-      PageableBeanList<T> beans = getResourceCore().getBeanBehavior().getBeans(start, end);
+      PageableBeanList<T> beans = getResourceCore().getBeanBehavior().getBeans(start, end, sortBy, sortDirection);
       ret = getResourceCore().makeGetSuccessResponse(getResourceRequestInfo(), this, beans);
       return ret;
     } catch(RuntimeException e) {

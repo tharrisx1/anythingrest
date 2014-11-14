@@ -63,23 +63,23 @@ public class BeanBehavior<T extends StorableBean> {
     }
   }
 
-  public PageableBeanList<T> getBeans(int start, int end) {
+  public PageableBeanList<T> getBeans(int start, int end, String sortBy, String sortDirection) {
     if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), "getBeans", start, end);
     PageableBeanList<T> ret = null;
     try {
       Map<String, String> propertyValues = new HashMap<>();
-      ret = matchBeans(start, end, propertyValues);
+      ret = matchBeans(start, end, sortBy, sortDirection, propertyValues);
       return ret;
     } finally {
       if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), "getBeans", ret);
     }
   }
 
-  public PageableBeanList<T> matchBeans(int start, int end, Map<String, String> propertyValues) {
-    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), "matchBeans", start, end, propertyValues);
+  public PageableBeanList<T> matchBeans(int start, int end, String sortBy, String sortDirection, Map<String, String> propertyValues) {
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), "matchBeans", start, end, sortBy, sortDirection, propertyValues);
     PageableBeanList<T> ret = null;
     try {
-      ret = getBeanStore().getPageOfMatchingBeans(start, end, propertyValues);
+      ret = getBeanStore().getPageOfMatchingBeans(start, end, sortBy, sortDirection, propertyValues);
       return ret;
     } finally {
       if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), "matchBeans", ret);

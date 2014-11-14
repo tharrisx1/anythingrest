@@ -1,5 +1,8 @@
 package org.tharrisx.framework.store.memory;
 
+import java.lang.reflect.Field;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -218,7 +221,7 @@ public class MemoryBeanStore<T extends StorableBean> extends AbstractBeanStore<T
   }
 
   @Override
-  public PageableBeanList<T> getPageOfMatchingBeans(final int start, final int end, final Map<String, String> propertyValues) throws BeanStoreException {
+  public PageableBeanList<T> getPageOfMatchingBeans(final int start, final int end, final String sortBy, final String sortDirection, final Map<String, String> propertyValues) throws BeanStoreException {
     if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), METHOD_GET_PAGE_OF_MATCHING_BEANS, propertyValues);
     PageableBeanList<T> ret = null;
     try {
@@ -230,12 +233,44 @@ public class MemoryBeanStore<T extends StorableBean> extends AbstractBeanStore<T
           int matches = 0;
           outer: for(T bean : getCache().values()) {
             for(Map.Entry<String, String> propertyValue : propertyValues.entrySet()) {
-              if(!propertyMatchesValue(transaction, "getPageOfBeans", bean, propertyValue))
+              if(!propertyMatchesValue(transaction, METHOD_GET_PAGE_OF_MATCHING_BEANS, bean, propertyValue))
                 continue outer;
             }
             list.add(bean);
             matches++;
           }
+          final String[] sortFields = sortBy.split(",");
+          final String[] sortOrders = sortDirection.split(",");
+          if(sortFields.length != sortOrders.length) throw new IllegalArgumentException("sortBy and sortDirection must contain the same number of values");
+          Collections.sort(list, new Comparator<T>() {
+            @SuppressWarnings({ "rawtypes", "unchecked" })
+            @Override public int compare(T o1, T o2) {
+              int retCmp = 0;
+              Class<?> clazz = o1.getClass();
+              for(int idx = 0; idx < sortFields.length; idx++) {
+                Field field = null;
+                try {
+                  field = clazz.getDeclaredField(sortFields[idx]);
+                } catch(NoSuchFieldException | SecurityException e1) {
+                  throw new IllegalArgumentException("sortBy contains no field named " + sortFields[idx]);
+                }
+                Comparable v1 = null;
+                Comparable v2 = null;
+                try {
+                  v1 = (Comparable<?>)field.get(o1);
+                  v2 = (Comparable<?>)field.get(o2);
+                } catch(IllegalArgumentException | IllegalAccessException e) {
+                  throw new IllegalArgumentException("Access to sortBy field named " + sortFields[idx] + " is disallowed");
+                }
+                if("ASCENDING".equalsIgnoreCase(sortOrders[idx]) || "ASC".equalsIgnoreCase(sortOrders[idx])) {
+                  retCmp = v1.compareTo(v2);
+                } else {
+                  retCmp = v2.compareTo(v1);
+                }
+              }
+              return retCmp;
+            }
+          });
           if(Log.isDebugEnabled(getClass())) Log.debug(getClass(), METHOD_GET_PAGE_OF_MATCHING_BEANS, "list: " + list + ", matches: " + matches);
           List<T> page = null;
           if(list.size() < start) {
@@ -259,7 +294,7 @@ public class MemoryBeanStore<T extends StorableBean> extends AbstractBeanStore<T
   }
 
   @Override
-  public PageableBeanList<T> getPageOfBeansViaQuery(int start, int end, String queryName, Object... queryParameters) throws BeanStoreException {
+  public PageableBeanList<T> getPageOfBeansViaQuery(int start, int end, String sortBy, String sortDirection, String queryName, Object... queryParameters) throws BeanStoreException {
     throw new OperationNotSupportedException(new BeanStoreStackInfo(getBeanType(), null, METHOD_GET_PAGE_OF_BEANS_VIA_QUERY), "Named queries are not supported by the MemoryBeanStore.");
   }
 

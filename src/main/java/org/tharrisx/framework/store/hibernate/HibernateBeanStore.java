@@ -33,6 +33,9 @@ public final class HibernateBeanStore<T extends StorableBean> extends AbstractBe
 
   private abstract class HibernateBeanStoreTransactionWrapper<U> extends BeanStoreTransactionWrapper<U> {
 
+    // method names for tracking
+    final String MAKE_PROPERTY_VALUE_CRITERIA = "makePropertyValueCriteria";
+
     HibernateBeanStoreTransactionWrapper(final BeanStoreFactory beanStoreFactory1, final Class<? extends StorableBean> beanType1, final String beanStoreMethod1) {
       super(beanStoreFactory1, beanType1, beanStoreMethod1);
     }
@@ -41,14 +44,42 @@ public final class HibernateBeanStore<T extends StorableBean> extends AbstractBe
       return (HibernateBeanStoreTransaction) transaction;
     }
 
-    Criteria makePropertyValueCriteria(BeanStoreTransaction transaction, Map<String, String> propertyValues) {
-      Criteria ret = getTransactionCast(transaction).getSession().createCriteria(getBeanType());
-      Object castValue = null;
-      for(Map.Entry<String, String> entry : propertyValues.entrySet()) {
-        castValue = castAsPropertyTypeValue(transaction, entry.getKey(), entry.getValue());
-        ret.add(Restrictions.eq(entry.getKey(), castValue));
+    Criteria makePropertyValueCriteria(BeanStoreTransaction transaction, Map<String, String> propertyValues, String sortBy, String sortDirection) {
+      if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), this.MAKE_PROPERTY_VALUE_CRITERIA, transaction, propertyValues, sortBy, sortDirection);
+      Criteria ret = null;
+      try {
+
+        ret = getTransactionCast(transaction).getSession().createCriteria(getBeanType());
+
+        // Matching
+        Object castValue = null;
+        for(Map.Entry<String, String> entry : propertyValues.entrySet()) {
+          castValue = castAsPropertyTypeValue(transaction, entry.getKey(), entry.getValue());
+          ret.add(Restrictions.eq(entry.getKey(), castValue));
+        }
+
+        // Sorting
+        if(!"".equals(sortBy)) {
+          String[] sortFields = sortBy.split(",");
+          if(Log.isDebugEnabled(getClass())) Log.debug(getClass(), this.MAKE_PROPERTY_VALUE_CRITERIA, "sortBy " + sortBy + " is parsed to " + sortFields.length + " items");
+          String[] sortOrders = sortDirection.split(",");
+          if(Log.isDebugEnabled(getClass())) Log.debug(getClass(), this.MAKE_PROPERTY_VALUE_CRITERIA, "sortDirection " + sortDirection + " is parsed to " + sortOrders.length + " items");
+          if(sortFields.length != sortOrders.length) throw new IllegalArgumentException("sortBy and sortDirection must contain the same number of values");
+          for(int idx = 0; idx < sortFields.length; idx++) {
+            if("ASCENDING".equalsIgnoreCase(sortOrders[idx]) || "ASC".equalsIgnoreCase(sortOrders[idx])) {
+              if(Log.isDebugEnabled(getClass())) Log.debug(getClass(), this.MAKE_PROPERTY_VALUE_CRITERIA, "Adding ascending sort for '" + sortFields[idx] + "'");
+              ret.addOrder(org.hibernate.criterion.Order.asc(sortFields[idx]));
+            } else {
+              if(Log.isDebugEnabled(getClass())) Log.debug(getClass(), this.MAKE_PROPERTY_VALUE_CRITERIA, "Adding descending sort for '" + sortFields[idx] + "'");
+              ret.addOrder(org.hibernate.criterion.Order.desc(sortFields[idx]));
+            }
+          }
+        }
+
+        return ret;
+      } finally {
+        if(Log.isExitingEnabled(getClass())) Log.exiting(getClass(), this.MAKE_PROPERTY_VALUE_CRITERIA, ret);
       }
-      return ret;
     }
   }
 
@@ -84,7 +115,7 @@ public final class HibernateBeanStore<T extends StorableBean> extends AbstractBe
           Boolean retInner = Boolean.FALSE;
 
           @SuppressWarnings("unchecked")
-          List<T> items = Collections.checkedList(makePropertyValueCriteria(transaction, propertyValues).list(), Object.class);
+          List<T> items = Collections.checkedList(makePropertyValueCriteria(transaction, propertyValues, "", "").list(), Object.class);
 
           if(items.size() > 1) {
             throw new ConflictingBeansFoundException(new BeanStoreStackInfo(getBeanType(), transaction, METHOD_HAS_BEAN_BY_UNIQUE_KEY), items.size(), propertyValues);
@@ -141,7 +172,7 @@ public final class HibernateBeanStore<T extends StorableBean> extends AbstractBe
         @Override
         protected T perform(BeanStoreTransaction transaction) throws BeanStoreException {
           T retInner = null;
-          List<T> items = Collections.checkedList(makePropertyValueCriteria(transaction, propertyValues).list(), Object.class);
+          List<T> items = Collections.checkedList(makePropertyValueCriteria(transaction, propertyValues, "", "").list(), Object.class);
           if(items.size() > 1) {
             throw new ConflictingBeansFoundException(new BeanStoreStackInfo(getBeanType(), transaction, METHOD_GET_BEAN_BY_UNIQUE_KEY), items.size(), propertyValues);
           }
@@ -171,7 +202,7 @@ public final class HibernateBeanStore<T extends StorableBean> extends AbstractBe
         protected BeanList<T> perform(BeanStoreTransaction transaction) throws BeanStoreException {
 
           @SuppressWarnings("unchecked")
-          BeanList<T> retBeanList = new BeanList<>(Collections.checkedList(makePropertyValueCriteria(transaction, propertyValues).list(), Object.class));
+          BeanList<T> retBeanList = new BeanList<>(Collections.checkedList(makePropertyValueCriteria(transaction, propertyValues, "", "").list(), Object.class));
 
           return retBeanList;
         }
@@ -204,16 +235,16 @@ public final class HibernateBeanStore<T extends StorableBean> extends AbstractBe
   }
 
   @Override
-  public PageableBeanList<T> getPageOfMatchingBeans(final int start, final int end, final Map<String, String> propertyValues) throws BeanStoreException {
-    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), METHOD_GET_PAGE_OF_MATCHING_BEANS, propertyValues);
+  public PageableBeanList<T> getPageOfMatchingBeans(final int start, final int end, final String sortBy, final String sortDirection, final Map<String, String> propertyValues) throws BeanStoreException {
+    if(Log.isInfoEnabled(getClass())) Log.info(getClass(), METHOD_GET_PAGE_OF_MATCHING_BEANS, propertyValues);
     PageableBeanList<T> ret = null;
     try {
       ret = new HibernateBeanStoreTransactionWrapper<PageableBeanList<T>>(getBeanStoreFactory(), getBeanType(), METHOD_GET_PAGE_OF_MATCHING_BEANS) {
 
         @Override
         protected PageableBeanList<T> perform(BeanStoreTransaction transaction) throws BeanStoreException {
-          Criteria countCrit = makePropertyValueCriteria(transaction, propertyValues);
-          Criteria pageCrit = makePropertyValueCriteria(transaction, propertyValues).setFirstResult(start).setMaxResults(end - start + 1);
+          Criteria countCrit = makePropertyValueCriteria(transaction, propertyValues, sortBy, sortDirection);
+          Criteria pageCrit = makePropertyValueCriteria(transaction, propertyValues, sortBy, sortDirection).setFirstResult(start).setMaxResults(end - start + 1);
 
           @SuppressWarnings("unchecked")
           PageableBeanList<T> retBeanList = new PageableBeanList<>(Collections.checkedList(pageCrit.list(), Object.class), countCrit.list().size(), start, end);
@@ -228,7 +259,7 @@ public final class HibernateBeanStore<T extends StorableBean> extends AbstractBe
   }
 
   @Override
-  public PageableBeanList<T> getPageOfBeansViaQuery(final int start, final int end, final String queryName, final Object... queryParameters) throws BeanStoreException {
+  public PageableBeanList<T> getPageOfBeansViaQuery(final int start, final int end, final String sortBy, final String sortDirection, final String queryName, final Object... queryParameters) throws BeanStoreException {
     if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), METHOD_GET_PAGE_OF_BEANS_VIA_QUERY, queryName, queryParameters);
     PageableBeanList<T> ret = null;
     try {

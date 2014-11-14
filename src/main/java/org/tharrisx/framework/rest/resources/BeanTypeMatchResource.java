@@ -65,12 +65,14 @@ public abstract class BeanTypeMatchResource<T extends StorableBean> {
   public Response matchBeans(
       @PathParam("propertyValuePairs") final String propertyValuePairs,
       @DefaultValue("0") @QueryParam("start") final int start,
-      @DefaultValue("9") @QueryParam("end") final int end) {
-    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), METHOD_MATCH_BEANS, propertyValuePairs, start, end);
+      @DefaultValue("9") @QueryParam("end") final int end,
+      @DefaultValue("") @QueryParam("sortBy") final String sortBy,
+      @DefaultValue("") @QueryParam("sortDirection") final String sortDirection) {
+    if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), METHOD_MATCH_BEANS, propertyValuePairs, start, end, sortBy, sortDirection);
     Response ret = null;
     try {
       Map<String, String> propertyStringMap = MapStringUtils.constructMap(Collections.singletonList(propertyValuePairs));
-      PageableBeanList<T> pageOfBeans = getResourceCore().getBeanBehavior().matchBeans(start, end, propertyStringMap);
+      PageableBeanList<T> pageOfBeans = getResourceCore().getBeanBehavior().matchBeans(start, end, sortBy, sortDirection, propertyStringMap);
       ret = getResourceCore().makeGetSuccessResponse(getResourceRequestInfo(), this, pageOfBeans);
       return ret;
     } finally {

@@ -153,7 +153,7 @@ public final class RootResource {
     if(Log.isEnteringEnabled(getClass())) Log.entering(getClass(), METHOD_MAKE_RESOURCE_REQUEST_INFO);
     ResourceRequestInfo ret = null;
     try {
-      PipeContext pipeContext = PipeContext.AS_PUBLIC; // $$$ All calls are public, no admin rest interface for the moment.
+      PipeContext pipeContext = PipeContext.AS_PUBLIC; // $$$ All calls are public, no admin rest interfaces for the moment.
       ret = new ResourceRequestInfo(pipeContext, getUriInfo(), getRequest(), getHttpHeaders(), getProviders(), timing);
       return ret;
     } finally {
