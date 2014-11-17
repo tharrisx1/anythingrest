@@ -56,6 +56,26 @@ public class PageableBeanList<T extends Bean> extends Bean {
   }
 
   /**
+   * The sortBy comma-separated list of field names for the query
+   */
+  @PipePropertyOrder(2.0)
+  private String sortBy;
+
+  public String getSortBy() {
+    return this.sortBy;
+  }
+
+  /**
+   * The sortDirection comma-separated list of sort directions for the query
+   */
+  @PipePropertyOrder(3.0)
+  private String sortDirection;
+
+  public String getSortDirection() {
+    return this.sortDirection;
+  }
+
+  /**
    * The beans this list carries are in this nested list.
    */
   @XStreamImplicit
@@ -87,17 +107,19 @@ public class PageableBeanList<T extends Bean> extends Bean {
   }
 
   public PageableBeanList() {
-    this(Collections.<T> emptyList(), 0, 0, 0);
+    this(Collections.<T> emptyList(), 0, 0, 0, "", "");
   }
 
-  public PageableBeanList(List<T> items1, int totalCount1, int start1, int end1) {
-    this(items1, totalCount1, start1, end1, new Date(), "");
+  public PageableBeanList(List<T> items1, int totalCount1, int start1, int end1, String sortBy1, String sortDirection1) {
+    this(items1, totalCount1, start1, end1, sortBy1, sortDirection1, new Date(), "");
   }
 
-  public PageableBeanList(List<T> items1, int totalCount1, int start1, int end1, Date lastModifed1, String tag1) {
+  public PageableBeanList(List<T> items1, int totalCount1, int start1, int end1, String sortBy1, String sortDirection1, Date lastModifed1, String tag1) {
     this.totalCount = totalCount1;
     this.start = start1;
     this.end = end1;
+    this.sortBy = sortBy1;
+    this.sortDirection = sortDirection1;
     this.items = new LinkedList<>(items1);
     this.lastModifed = lastModifed1;
     this.tag = tag1;

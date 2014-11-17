@@ -283,7 +283,7 @@ public class MemoryBeanStore<T extends StorableBean> extends AbstractBeanStore<T
             page = list.subList(start, localEnd);
           }
           if(Log.isDebugEnabled(getClass())) Log.debug(getClass(), METHOD_GET_PAGE_OF_MATCHING_BEANS, "page: " + page + ", matches: " + matches);
-          retInner = new PageableBeanList<>(page, matches, start, end);
+          retInner = new PageableBeanList<>(page, matches, start, end, sortBy, sortDirection);
           return retInner;
         }
       }.handle();

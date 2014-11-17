@@ -247,7 +247,7 @@ public final class HibernateBeanStore<T extends StorableBean> extends AbstractBe
           Criteria pageCrit = makePropertyValueCriteria(transaction, propertyValues, sortBy, sortDirection).setFirstResult(start).setMaxResults(end - start + 1);
 
           @SuppressWarnings("unchecked")
-          PageableBeanList<T> retBeanList = new PageableBeanList<>(Collections.checkedList(pageCrit.list(), Object.class), countCrit.list().size(), start, end);
+          PageableBeanList<T> retBeanList = new PageableBeanList<>(Collections.checkedList(pageCrit.list(), Object.class), countCrit.list().size(), start, end, sortBy, sortDirection);
 
           return retBeanList;
         }
@@ -271,7 +271,7 @@ public final class HibernateBeanStore<T extends StorableBean> extends AbstractBe
           Query pageQuery = getTransactionCast(transaction).getSession().getNamedQuery(queryName).setFirstResult(start).setMaxResults(end - start + 1);
 
           @SuppressWarnings("unchecked")
-          PageableBeanList<T> retBeanList = new PageableBeanList<>(pageQuery.list(), countQuery.list().size(), start, end);
+          PageableBeanList<T> retBeanList = new PageableBeanList<>(pageQuery.list(), countQuery.list().size(), start, end, sortBy, sortDirection);
 
           return retBeanList;
         }

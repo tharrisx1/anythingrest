@@ -27,10 +27,12 @@ public class MapStringUtils {
       }
     }
     String completeString = buf.toString();
-    StringTokenizer completeToker = new StringTokenizer(completeString, ",");
-    while(completeToker.hasMoreTokens()) {
-      StringTokenizer pairToker = new StringTokenizer(completeToker.nextToken(), "=");
-      ret.put(pairToker.nextToken(), pairToker.nextToken());
+    if(!"".equals(completeString) && null != completeString && !"null".equals(completeString)) {
+      StringTokenizer completeToker = new StringTokenizer(completeString, ",");
+      while(completeToker.hasMoreTokens()) {
+        StringTokenizer pairToker = new StringTokenizer(completeToker.nextToken(), "=");
+        ret.put(pairToker.nextToken(), pairToker.nextToken());
+      }
     }
     return ret;
   }

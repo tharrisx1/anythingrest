@@ -20,8 +20,14 @@ import org.tharrisx.util.log.Log;
  */
 public class ReflectionUtils {
 
-  public static Class<?> getFieldType(Class<?> targetType, String fieldName) throws SecurityException, NoSuchFieldException {
-    return targetType.getField(fieldName).getType();
+  public static Class<?> getFieldType(Class<?> targetType, String fieldName) {
+    try {
+      Field field = targetType.getDeclaredField(fieldName);
+      field.setAccessible(true);
+      return field.getType();
+    } catch(Throwable e) {
+      throw new ReflectionException(e);
+    }
   }
 
   /**
