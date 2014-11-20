@@ -152,7 +152,7 @@ public final class HibernateBeanStore<T extends StorableBean> extends AbstractBe
           if(null == itemRef) {
             throw new NoBeanFoundException(new BeanStoreStackInfo(getBeanType(), transaction, METHOD_GET_BEAN), "No bean for id: " + beanId);
           }
-          retInner = itemRef; // <- bad cast, thanks hibernate.
+          retInner = itemRef;
           return retInner;
         }
       }.handle();
